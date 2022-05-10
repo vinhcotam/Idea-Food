@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "976770472556",
+    "firebase_url": "https://idea-food-cd7e7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "idea-food-cd7e7",
+    "storage_bucket": "idea-food-cd7e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976770472556:android:1d8ef47cf66e8816ba1649",
+        "android_client_info": {
+          "package_name": "com.example.ideafood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976770472556-bfbg685364lsv6176sohld0blsip6tpl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8vGtz0Pk_37ZpqWXljawEW1BHQjiYCBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976770472556-bfbg685364lsv6176sohld0blsip6tpl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
