@@ -15,11 +15,19 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.ideafood.Module.Img;
+import com.example.ideafood.Module.Posts;
+import com.example.ideafood.Module.Video;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     VideoView vv_video;
@@ -27,18 +35,19 @@ public class MainActivity extends AppCompatActivity {
     int SELECT_PICTURE = 200;
     int SELECT_PICTURE1 = 220;
     int SELECT_VIDEO_REQUEST=100;
+    ArrayList content_post;
     Button btn_save,btn_preview;
-    EditText et_namepost,et_namecontent1,et_namecontent2;
+    EditText et_namepost,et_namecontent1,et_namecontent2,et_categorypost,et_headerpost;
     MediaController mc;
     Button btn_videoupload,btn_imgload,btn_img1load;
-
+    final FirebaseDatabase database = FirebaseDatabase.getInstance("https://idea-food-cd7e7-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference ref = database.getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpost2);
         anhXa();
         setOnClick();
-
     }
 
     private void setOnClick() {
@@ -69,28 +78,75 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         btn_preview.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,preview.class);
-                Bundle bundle=new Bundle();
-                String img= String.valueOf(selectedImageUri);
-                String img1= String.valueOf(selectedImageUri1);
                 String content1=et_namecontent1.getText().toString().trim();
                 String content2=et_namecontent2.getText().toString().trim();
                 String title=et_namepost.getText().toString().trim();
-                String video= String.valueOf(selectedVideoUri);
-                bundle.putString("title",title);
-                bundle.putString("content1",content1);
-                bundle.putString("content2",content2);
-                bundle.putString("img",img);
-                bundle.putString("img1",img1);
-                bundle.putString("video",video);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                String header=et_headerpost.getText().toString().trim();
+                String category=et_categorypost.getText().toString().trim();
+                String imgUri= String.valueOf(selectedImageUri);
+                String img1Uri= String.valueOf(selectedImageUri1);
+                String videoUri= String.valueOf(selectedVideoUri);
+                if(imgUri!=null||img1Uri!=null||videoUri!=null||content1!=null
+                        ||content2!=null||title!=null||category!=null||header!=null){
+                    Intent intent=new Intent(MainActivity.this,preview.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("category",category);
+                    bundle.putString("header",header);
+                    bundle.putString("title",title);
+                    bundle.putString("content1",content1);
+                    bundle.putString("content2",content2);
+                    bundle.putString("img",imgUri);
+                    bundle.putString("img1",img1Uri);
+                    bundle.putString("video",videoUri);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
 
             }
         });
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String imgUri= String.valueOf(selectedImageUri);
+                String img1Uri= String.valueOf(selectedImageUri1);
+                String videoUri= String.valueOf(selectedVideoUri);
+                String content1=et_namecontent1.getText().toString().trim();
+                String content2=et_namecontent2.getText().toString().trim();
+                String title=et_namepost.getText().toString().trim();
+                String category=et_categorypost.getText().toString().trim();
+                String header=et_headerpost.getText().toString().trim();
+                if(imgUri==null||img1Uri!=null||videoUri!=null||content1!=null
+                        ||content2!=null||title!=null||category!=null||header!=null){
+                    Random random = new Random();
+                    int idpost = random.nextInt(10000);
+                    int idvideo = random.nextInt(10000);
+                    String videoid= String.valueOf(idvideo);
+                    int idimg = random.nextInt(10000);
+                    String imgid= String.valueOf(idimg);
+                    int imgid1 = random.nextInt(10000);
+                    content_post=new ArrayList();
+                    content_post.add(content1);
+                    content_post.add(content2);
+                    String date= String.valueOf(java.time.LocalDate.now());
+                    String postid= String.valueOf(idpost);
+                    Video video=new Video( videoid,  "videoname",  videoUri, "7");
+                    FirebaseDatabase.getInstance().getReference().child("videos").push().setValue(video);
+                    Img img=new Img( imgid,  imgUri,  "a","7"  );
+                    FirebaseDatabase.getInstance().getReference().child("images").push().setValue(img);
+                    Posts post= new Posts(postid,  date,  header,  title, "1",  category,  content_post);
+                    FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
+                    Toast.makeText(MainActivity.this,"Bài đăng của bạn đang đợi được duyệt",Toast.LENGTH_LONG).show();
 
+                }else{
+                    Toast.makeText(MainActivity.this,"Vui lòng nhập đầu đủ thông tin",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
     }
 
     private void anhXa() {
@@ -102,7 +158,10 @@ public class MainActivity extends AppCompatActivity {
         et_namecontent1=findViewById(R.id.et_namecontent1);
         et_namecontent2=findViewById(R.id.et_namecontent2);
         et_namepost=findViewById(R.id.et_namepost);
+        et_categorypost=findViewById(R.id.et_categorypost);
+        et_headerpost=findViewById(R.id.et_headerpost);
         mc=new MediaController(MainActivity.this);
+        vv_video.setFocusable(true);
         vv_video.setMediaController(mc);
         btn_imgload=findViewById(R.id.btn_imgload);
         btn_img1load=findViewById(R.id.btn_img1load);

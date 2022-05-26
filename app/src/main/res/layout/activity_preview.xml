@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="match_parent"
-            android:text="Tiêu đề bài viết"
+            android:text="Tên bài viết"
             android:textSize="30dp"
             android:id="@+id/tv_title"
             android:gravity="center_horizontal"
@@ -36,12 +36,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </Button>
+
         </LinearLayout>
         <LinearLayout
             android:padding="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="20dp"
+                android:id="@+id/tv_headerpost_preview"
+                android:text="Tiêu đề bài viết bài viết"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/tv_categorypost_preview"
+                android:text="Thể loại bài viết"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <TextView
                 android:text="Nội dung 1"
                 android:textSize="15dp"
