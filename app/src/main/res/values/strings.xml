@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IdeaFood</string>
+    <string name="rep">trả lời</string>
+    <string name="report">báo cáo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
