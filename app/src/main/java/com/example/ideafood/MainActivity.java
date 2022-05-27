@@ -17,6 +17,7 @@ import android.widget.VideoView;
 
 import com.example.ideafood.Module.Img;
 import com.example.ideafood.Module.Posts;
+import com.example.ideafood.Module.Tag;
 import com.example.ideafood.Module.Video;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,12 +41,16 @@ public class MainActivity extends AppCompatActivity {
     EditText et_namepost,et_namecontent1,et_namecontent2,et_categorypost,et_headerpost;
     MediaController mc;
     Button btn_videoupload,btn_imgload,btn_img1load;
+    Random random = new Random();
     final FirebaseDatabase database = FirebaseDatabase.getInstance("https://idea-food-cd7e7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference ref = database.getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpost2);
+        Intent intent=new Intent(MainActivity.this,DetailPost.class);
+        startActivity(intent);
+//        setContentView(R.layout.activity_testaddtag);
         anhXa();
         setOnClick();
     }
@@ -89,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 String imgUri= String.valueOf(selectedImageUri);
                 String img1Uri= String.valueOf(selectedImageUri1);
                 String videoUri= String.valueOf(selectedVideoUri);
+                int idtag = random.nextInt(10000);
+                String tagid= String.valueOf(idtag);
+                Tag tag=new Tag( tagid,  "đồ ăn nhanh");
+                FirebaseDatabase.getInstance().getReference().child("tags").push().setValue(tag);
                 if(imgUri!=null||img1Uri!=null||videoUri!=null||content1!=null
                         ||content2!=null||title!=null||category!=null||header!=null){
                     Intent intent=new Intent(MainActivity.this,preview.class);
@@ -103,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putString("video",videoUri);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this,"Vui lòng nhập đầu đủ thông tin",Toast.LENGTH_LONG).show();
                 }
 
 
@@ -121,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 String header=et_headerpost.getText().toString().trim();
                 if(imgUri==null||img1Uri!=null||videoUri!=null||content1!=null
                         ||content2!=null||title!=null||category!=null||header!=null){
-                    Random random = new Random();
+
                     int idpost = random.nextInt(10000);
                     int idvideo = random.nextInt(10000);
                     String videoid= String.valueOf(idvideo);
@@ -185,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         };
         TedPermission.create()
                 .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("Nếu bạn từ chối cấp quyền,bạn k thể dùng chức năng này\n\nCấp lại quyền tại [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
     }
