@@ -1,5 +1,6 @@
     package com.example.ideafood;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,12 +13,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
     public class MainActivity extends AppCompatActivity {
     TextView tv_dky;
     EditText edt_tk,edt_mk;
     FirebaseAuth fb;
     Button btn_dnhap;
+    ArrayList<Account>;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +36,21 @@ import com.google.firebase.auth.FirebaseAuth;
         edt_tk = findViewById(R.id.edT_taikhoan);
         edt_mk = findViewById(R.id.edT_matkhau);
         btn_dnhap = findViewById(R.id.btn_dangnhap);
-        fb = FirebaseAuth.getInstance();
+        DatabaseReference fb = FirebaseDatabase.getInstance().getReference();
         btn_dnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fb.child("Account").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                })
                 if(TextUtils.isEmpty(edt_tk.getText().toString())){
                     Toast.makeText(MainActivity.this,"Vui lòng nhập tài khoản!!",Toast.LENGTH_SHORT).show();
                     return;
