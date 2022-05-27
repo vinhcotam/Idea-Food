@@ -37,6 +37,10 @@ public class Module_Chat extends AppCompatActivity {
     TextView textView;
     Button button;
     EditText editText;
+    TextView tvname, tvdate, tvcontent, tvrep, tvhiderep;
+    LinearLayout layoutcmt;
+    RecyclerView rcv;
+    DatabaseReference database;
 
     //Values
     String userid = "đây là user ảo";
@@ -50,7 +54,6 @@ public class Module_Chat extends AppCompatActivity {
     int page = 1;
     int maxPage = 1;
     ArrayList<Comment> commentList;
-    DatabaseReference database;
     //tạo các sự kiện
     void SetEvent(){
         textView = findViewById(R.id.titlecommentpost);
@@ -106,7 +109,7 @@ public class Module_Chat extends AppCompatActivity {
             }
         });
     }
-    //gửi bình luận
+    //gửi bình luận(fatherid=-1) và trả lời(fatherid!=-1)
     void SendComment(){
         content = editText.getText().toString();
         date = java.time.LocalDate.now().toString();
@@ -115,6 +118,7 @@ public class Module_Chat extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("comments").push().setValue(cmt);
         Toast.makeText(this, "Đã bình luận", Toast.LENGTH_SHORT).show();
     }
+    //kết nối Firebase
     void ConnectDB(){
         database = FirebaseDatabase.getInstance().getReference();
     }
@@ -145,7 +149,7 @@ public class Module_Chat extends AppCompatActivity {
             btnext.setEnabled(true);
         }
     }
-    //tải các comment trong post
+    //tải các comment trong post và đưa vào mảng
     void LoadComment(){
         commentList = new ArrayList<>();
         Query Qget_comment = database.child("comments");
@@ -156,6 +160,7 @@ public class Module_Chat extends AppCompatActivity {
                     Comment cmt = item.getValue(Comment.class);
                     commentList.add(cmt);
                 }
+                //phân loại comment
                 fatherList = new ArrayList<>();
                 repList = new ArrayList<>();
                 for(int i=0;i<commentList.size();i++){
@@ -179,15 +184,14 @@ public class Module_Chat extends AppCompatActivity {
             }
         });
     }
+    //hiển thị comment ra màn hình
     void DisplayComment(){
         TextView tv = findViewById(R.id.maxPage);
         tv.setText("/"+maxPage+" trang");
         textView.setText("Bình luận("+fatherList.size()+" bình luận, "+repList.size()+" trả lời)");
         setEvent_5comment();
     }
-    TextView tvname, tvdate, tvcontent, tvrep, tvhiderep;
-    LinearLayout layoutcmt;
-    RecyclerView rcv;
+    //tham chiếu tới các đối tượng và hiển thị từng phần
     void setEvent_5comment(){
         tvname = findViewById(R.id.username1);
         tvdate = findViewById(R.id.time1);
@@ -230,6 +234,7 @@ public class Module_Chat extends AppCompatActivity {
         tvhiderep = findViewById(R.id.hiderep5);
         Display_5comment(4);
     }
+    //hiển thị fathercomment và repcomment trên các đối tượng đang tham chiếu
     void Display_5comment(int index){
         if((page-1)*5+index>=fatherList.size()){
             layoutcmt.setVisibility(View.GONE);
@@ -310,6 +315,7 @@ public class Module_Chat extends AppCompatActivity {
             }
         });
     }
+    //tính năng trả lời fathercomment
     void Rep(int index){
         TextView tv = findViewById(R.id.repwho);
         tv.setOnClickListener(new View.OnClickListener() {
@@ -324,6 +330,7 @@ public class Module_Chat extends AppCompatActivity {
         tv.setText("Bạn đang trả lời "+ fatherList.get((page-1)*5+index).getUserid() + "\nNhấn vào dòng chữ này để bình luận bài viết");
         fatherid = fatherList.get((page-1)*5+index).getCommentid();
     }
+    //tính năng ẩn phần repcomment
     void Hide(TextView tvhide, RecyclerView current){
         if(current.getVisibility()==View.VISIBLE){
             current.setVisibility(View.GONE);
