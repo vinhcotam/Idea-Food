@@ -6,16 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
-
+    tools:context=".dangky">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng Nhập"
-        android:textSize="40sp"
-        android:layout_marginBottom="20dp"/>
+        android:text="Đăng Ký"
+        android:textSize="40sp"/>
     <EditText
-        android:id="@+id/edT_taikhoan"
+        android:id="@+id/edT_tk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tài Khoản"
@@ -24,36 +22,25 @@
         android:drawablePadding="10dp"
         android:layout_marginBottom="20dp"/>
     <EditText
-        android:id="@+id/edT_matkhau"
+        android:id="@+id/edT_mk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mật Khẩu"
+        android:hint="Mật khẩu"
         android:textSize="25sp"
-        android:inputType="textPassword"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/ic_matkhau"
+        android:layout_marginBottom="20dp"/>
+    <EditText
+        android:id="@+id/edT_mk2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập lại mật khẩu"
+        android:textSize="25sp"
         android:drawablePadding="10dp"
         android:drawableLeft="@drawable/ic_matkhau"
         android:layout_marginBottom="20dp"/>
     <Button
-        android:id="@+id/btn_dangnhap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng nhập"/>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bạn chưa có tài khoản ?"/>
-        <TextView
-            android:id="@+id/tv_dangky"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đăng ký ngay!"
-            android:textColor="#1281A6"/>
-    </LinearLayout>
-
-
+        android:text="Đăng ký"/>
 </LinearLayout>
