@@ -282,7 +282,7 @@
             android:orientation="horizontal"
             android:gravity="center_horizontal">
             <Button
-                android:id="@+id/nextPage"
+                android:id="@+id/prevPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trước"/>
@@ -299,7 +299,7 @@
                 android:layout_height="wrap_content"
                 android:text="//numpage"/>
             <Button
-                android:id="@+id/prevPage"
+                android:id="@+id/nextPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sau"/>

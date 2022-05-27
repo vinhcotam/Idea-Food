@@ -48,6 +48,7 @@ public class Module_Chat extends AppCompatActivity {
     ArrayList<Comment> fatherList;
     ArrayList<Comment> repList;
     int page = 1;
+    int maxPage = 1;
     ArrayList<Comment> commentList;
     DatabaseReference database;
     //tạo các sự kiện
@@ -78,7 +79,8 @@ public class Module_Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 page++;
-                LoadComment();
+                checkPage();
+                DisplayComment();
             }
         });
         Button prevpage = findViewById(R.id.prevPage);
@@ -86,7 +88,8 @@ public class Module_Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 page--;
-                LoadComment();
+                checkPage();
+                DisplayComment();
             }
         });
         EditText enterPage = findViewById(R.id.enterPage);
@@ -95,8 +98,9 @@ public class Module_Chat extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    page = Integer.getInteger(enterPage.getText().toString());
-                    LoadComment();
+                    page = Integer.parseInt(enterPage.getText().toString());
+                    checkPage();
+                    DisplayComment();
                 }
                 return false;
             }
@@ -113,6 +117,33 @@ public class Module_Chat extends AppCompatActivity {
     }
     void ConnectDB(){
         database = FirebaseDatabase.getInstance().getReference();
+    }
+    //kiểm tra xem trang hiện tại đã là min hoặc max chưa
+    void checkPage(){
+        //giới hạn phạm vi
+        if(page<1){
+            page=1;
+        }
+        if(page>maxPage){
+            page=maxPage;
+        }
+        //hiển thị trang hiện tại
+        EditText et = findViewById(R.id.enterPage);
+        et.setText(Integer.toString(page));
+        Button btnext = findViewById(R.id.nextPage);
+        Button btprev = findViewById(R.id.prevPage);
+        if(page==1){
+            btprev.setEnabled(false);
+        }
+        else{
+            btprev.setEnabled(true);
+        }
+        if(page==maxPage){
+            btnext.setEnabled(false);
+        }
+        else{
+            btnext.setEnabled(true);
+        }
     }
     //tải các comment trong post
     void LoadComment(){
@@ -135,6 +166,10 @@ public class Module_Chat extends AppCompatActivity {
                         repList.add(commentList.get(i));
                     }
                 }
+                maxPage = fatherList.size()/5+1;
+                if(maxPage%5==0)
+                    maxPage--;
+                checkPage();
                 DisplayComment();
             }
 
@@ -145,10 +180,13 @@ public class Module_Chat extends AppCompatActivity {
         });
     }
     void DisplayComment(){
-        textView.setText("Bình luận("+commentList.size()+" bình luận)");
+        TextView tv = findViewById(R.id.maxPage);
+        tv.setText("/"+maxPage+" trang");
+        textView.setText("Bình luận("+fatherList.size()+" bình luận, "+repList.size()+" trả lời)");
         setEvent_5comment();
     }
     TextView tvname, tvdate, tvcontent, tvrep;
+    LinearLayout layoutcmt;
     RecyclerView rcv;
     void setEvent_5comment(){
         tvname = findViewById(R.id.username1);
@@ -156,36 +194,43 @@ public class Module_Chat extends AppCompatActivity {
         tvcontent = findViewById(R.id.content1);
         tvrep = findViewById(R.id.rep1);
         rcv = findViewById(R.id.rcv1);
+        layoutcmt = findViewById(R.id.layoutcomment1);
         Display_5comment(0);
         tvname = findViewById(R.id.username2);
         tvdate = findViewById(R.id.time2);
         tvcontent = findViewById(R.id.content2);
         tvrep = findViewById(R.id.rep2);
         rcv = findViewById(R.id.rcv2);
+        layoutcmt = findViewById(R.id.layoutcomment2);
         Display_5comment(1);
         tvname = findViewById(R.id.username3);
         tvdate = findViewById(R.id.time3);
         tvcontent = findViewById(R.id.content3);
         tvrep = findViewById(R.id.rep3);
         rcv = findViewById(R.id.rcv3);
+        layoutcmt = findViewById(R.id.layoutcomment3);
         Display_5comment(2);
         tvname = findViewById(R.id.username4);
         tvdate = findViewById(R.id.time4);
         tvcontent = findViewById(R.id.content4);
         tvrep = findViewById(R.id.rep4);
         rcv = findViewById(R.id.rcv4);
+        layoutcmt = findViewById(R.id.layoutcomment4);
         Display_5comment(3);
         tvname = findViewById(R.id.username5);
         tvdate = findViewById(R.id.time5);
         tvcontent = findViewById(R.id.content5);
         tvrep = findViewById(R.id.rep5);
         rcv = findViewById(R.id.rcv5);
+        layoutcmt = findViewById(R.id.layoutcomment5);
         Display_5comment(4);
     }
     void Display_5comment(int index){
         if((page-1)*5+index>=fatherList.size()){
+            layoutcmt.setVisibility(View.GONE);
             return;
         }
+        layoutcmt.setVisibility(View.VISIBLE);
         tvname.setText(fatherList.get((page-1)*5+index).getUserid());
         tvdate.setText(fatherList.get((page-1)*5+index).getDate());
         tvcontent.setText(fatherList.get((page-1)*5+index).getContent());
