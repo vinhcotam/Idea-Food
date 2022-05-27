@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginStart="5dp">
+    android:layout_marginStart="5dp"
+    android:background="#66E8EAF6">
 
     <TextView
         android:id="@+id/repid"

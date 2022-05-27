@@ -82,13 +82,28 @@
                 android:layout_height="wrap_content"
                 android:text="content1"
                 />
-            <TextView
-                android:id="@+id/rep1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rep"
-                android:layout_marginLeft="10dp"
-                android:textColor="#3F51B5"/>
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/rep1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="@string/rep"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#3F51B5"/>
+                <TextView
+                    android:id="@+id/hiderep1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:background="#66E8EAF6"
+                    android:text="@string/hiderep"
+                    android:textColor="#3F51B5"/>
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv1"
@@ -127,13 +142,27 @@
                 android:layout_height="wrap_content"
                 android:text="content2"
                 />
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
             <TextView
                 android:id="@+id/rep2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.8"
                 android:text="@string/rep"
                 android:layout_marginLeft="10dp"
                 android:textColor="#3F51B5"/>
+            <TextView
+                android:id="@+id/hiderep2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="#66E8EAF6"
+                android:text="@string/hiderep"
+                android:textColor="#3F51B5"/>
+        </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv2"
@@ -172,13 +201,27 @@
                 android:layout_height="wrap_content"
                 android:text="content3"
                 />
-            <TextView
-                android:id="@+id/rep3"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rep"
-                android:layout_marginLeft="10dp"
-                android:textColor="#3F51B5"/>
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/rep3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="@string/rep"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#3F51B5"/>
+                <TextView
+                    android:id="@+id/hiderep3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:background="#66E8EAF6"
+                    android:text="@string/hiderep"
+                    android:textColor="#3F51B5"/>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv3"
@@ -217,13 +260,27 @@
                 android:layout_height="wrap_content"
                 android:text="content4"
                 />
-            <TextView
-                android:id="@+id/rep4"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rep"
-                android:layout_marginLeft="10dp"
-                android:textColor="#3F51B5"/>
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/rep4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="@string/rep"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#3F51B5"/>
+                <TextView
+                    android:id="@+id/hiderep4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.15"
+                    android:background="#66E8EAF6"
+                    android:text="@string/hiderep"
+                    android:textColor="#3F51B5"/>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv4"
@@ -262,13 +319,27 @@
                 android:layout_height="wrap_content"
                 android:text="content5"
                 />
-            <TextView
-                android:id="@+id/rep5"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rep"
-                android:layout_marginLeft="10dp"
-                android:textColor="#3F51B5"/>
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/rep5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="@string/rep"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#3F51B5"/>
+                <TextView
+                    android:id="@+id/hiderep5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:background="#66E8EAF6"
+                    android:text="@string/hiderep"
+                    android:textColor="#3F51B5"/>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv5"

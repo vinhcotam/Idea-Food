@@ -185,7 +185,7 @@ public class Module_Chat extends AppCompatActivity {
         textView.setText("Bình luận("+fatherList.size()+" bình luận, "+repList.size()+" trả lời)");
         setEvent_5comment();
     }
-    TextView tvname, tvdate, tvcontent, tvrep;
+    TextView tvname, tvdate, tvcontent, tvrep, tvhiderep;
     LinearLayout layoutcmt;
     RecyclerView rcv;
     void setEvent_5comment(){
@@ -195,6 +195,7 @@ public class Module_Chat extends AppCompatActivity {
         tvrep = findViewById(R.id.rep1);
         rcv = findViewById(R.id.rcv1);
         layoutcmt = findViewById(R.id.layoutcomment1);
+        tvhiderep = findViewById(R.id.hiderep1);
         Display_5comment(0);
         tvname = findViewById(R.id.username2);
         tvdate = findViewById(R.id.time2);
@@ -202,6 +203,7 @@ public class Module_Chat extends AppCompatActivity {
         tvrep = findViewById(R.id.rep2);
         rcv = findViewById(R.id.rcv2);
         layoutcmt = findViewById(R.id.layoutcomment2);
+        tvhiderep = findViewById(R.id.hiderep2);
         Display_5comment(1);
         tvname = findViewById(R.id.username3);
         tvdate = findViewById(R.id.time3);
@@ -209,6 +211,7 @@ public class Module_Chat extends AppCompatActivity {
         tvrep = findViewById(R.id.rep3);
         rcv = findViewById(R.id.rcv3);
         layoutcmt = findViewById(R.id.layoutcomment3);
+        tvhiderep = findViewById(R.id.hiderep3);
         Display_5comment(2);
         tvname = findViewById(R.id.username4);
         tvdate = findViewById(R.id.time4);
@@ -216,6 +219,7 @@ public class Module_Chat extends AppCompatActivity {
         tvrep = findViewById(R.id.rep4);
         rcv = findViewById(R.id.rcv4);
         layoutcmt = findViewById(R.id.layoutcomment4);
+        tvhiderep = findViewById(R.id.hiderep4);
         Display_5comment(3);
         tvname = findViewById(R.id.username5);
         tvdate = findViewById(R.id.time5);
@@ -223,6 +227,7 @@ public class Module_Chat extends AppCompatActivity {
         tvrep = findViewById(R.id.rep5);
         rcv = findViewById(R.id.rcv5);
         layoutcmt = findViewById(R.id.layoutcomment5);
+        tvhiderep = findViewById(R.id.hiderep5);
         Display_5comment(4);
     }
     void Display_5comment(int index){
@@ -239,6 +244,12 @@ public class Module_Chat extends AppCompatActivity {
             if(repList.get(i).getFatherid().equals(fatherList.get((page-1)*5+index).getCommentid())){
                 current_repList.add(repList.get(i));
             }
+        }
+        if(current_repList.size()!=0){
+            tvhiderep.setVisibility(View.VISIBLE);
+        }
+        else{
+            tvhiderep.setVisibility(View.GONE);
         }
         Rep_Adapter rep_adapter = new Rep_Adapter(current_repList);
         rcv.setAdapter(rep_adapter);
@@ -271,6 +282,33 @@ public class Module_Chat extends AppCompatActivity {
                 }
             }
         });
+        tvhiderep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.hiderep1:{
+                        Hide(findViewById(R.id.hiderep1), findViewById(R.id.rcv1));
+                        break;
+                    }
+                    case R.id.hiderep2:{
+                        Hide(findViewById(R.id.hiderep2), findViewById(R.id.rcv2));
+                        break;
+                    }
+                    case R.id.hiderep3:{
+                        Hide(findViewById(R.id.hiderep3), findViewById(R.id.rcv3));
+                        break;
+                    }
+                    case R.id.hiderep4:{
+                        Hide(findViewById(R.id.hiderep4), findViewById(R.id.rcv4));
+                        break;
+                    }
+                    case R.id.hiderep5:{
+                        Hide(findViewById(R.id.hiderep5), findViewById(R.id.rcv5));
+                        break;
+                    }
+                }
+            }
+        });
     }
     void Rep(int index){
         TextView tv = findViewById(R.id.repwho);
@@ -285,5 +323,15 @@ public class Module_Chat extends AppCompatActivity {
         tv.setVisibility(View.VISIBLE);
         tv.setText("Bạn đang trả lời "+ fatherList.get((page-1)*5+index).getUserid() + "\nNhấn vào dòng chữ này để bình luận bài viết");
         fatherid = fatherList.get((page-1)*5+index).getCommentid();
+    }
+    void Hide(TextView tvhide, RecyclerView current){
+        if(current.getVisibility()==View.VISIBLE){
+            current.setVisibility(View.GONE);
+            tvhide.setText("hiện trả lời");
+        }
+        else{
+            current.setVisibility(View.VISIBLE);
+            tvhide.setText("ẩn trả lời");
+        }
     }
 }
