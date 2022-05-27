@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IdeaFood">
         <activity
+            android:name=".Module_Chat"
+            android:exported="false" />
+        <activity
+            android:name=".BoxAddComment"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
