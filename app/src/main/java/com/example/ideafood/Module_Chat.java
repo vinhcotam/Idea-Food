@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 
+import com.example.ideafood.Adapter.ListRep_Adapter;
 import com.example.ideafood.Adapter.Rep_Adapter;
 import com.example.ideafood.classs.Comment;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,7 @@ public class Module_Chat extends AppCompatActivity {
     String content="";
     String date="";
     String commentid="";
+    ArrayList<Comment> fatherList;
     ArrayList<Comment> repList;
     int page = 1;
     ArrayList<Comment> commentList;
@@ -60,7 +63,44 @@ public class Module_Chat extends AppCompatActivity {
                 LoadComment();
             }
         });
-
+        //thoát khỏi trạng thái trả lời bình luận của 1 ai đó
+        TextView tv = findViewById(R.id.repwho);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                button.setText("Trả lời");
+                fatherid = "-1";
+                tv.setVisibility(View.INVISIBLE);
+            }
+        });
+        Button nextpage = findViewById(R.id.nextPage);
+        nextpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                page++;
+                LoadComment();
+            }
+        });
+        Button prevpage = findViewById(R.id.prevPage);
+        prevpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                page--;
+                LoadComment();
+            }
+        });
+        EditText enterPage = findViewById(R.id.enterPage);
+        enterPage.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    page = Integer.getInteger(enterPage.getText().toString());
+                    LoadComment();
+                }
+                return false;
+            }
+        });
     }
     //gửi bình luận
     void SendComment(){
@@ -77,13 +117,23 @@ public class Module_Chat extends AppCompatActivity {
     //tải các comment trong post
     void LoadComment(){
         commentList = new ArrayList<>();
-        Query Qget_comment = database.child("comments").orderByChild("fatherid").equalTo("-1");
+        Query Qget_comment = database.child("comments");
         Qget_comment.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item:snapshot.getChildren()){
                     Comment cmt = item.getValue(Comment.class);
                     commentList.add(cmt);
+                }
+                fatherList = new ArrayList<>();
+                repList = new ArrayList<>();
+                for(int i=0;i<commentList.size();i++){
+                    if(commentList.get(i).getFatherid().equals("-1")){
+                        fatherList.add(commentList.get(i));
+                    }
+                    else {
+                        repList.add(commentList.get(i));
+                    }
                 }
                 DisplayComment();
             }
@@ -133,35 +183,28 @@ public class Module_Chat extends AppCompatActivity {
         Display_5comment(4);
     }
     void Display_5comment(int index){
-        tvname.setText(commentList.get((page-1)*5+index).getUserid());
-        tvdate.setText(commentList.get((page-1)*5+index).getDate());
-        tvcontent.setText(commentList.get((page-1)*5+index).getContent());
-        Query allrep = database.child("comments").orderByChild("fatherid").equalTo(commentList.get((page-1)*5+index).getCommentid());
-        allrep.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                repList = new ArrayList<>();
-                for(DataSnapshot item: snapshot.getChildren()){
-                    Comment cmt = item.getValue(Comment.class);
-                    repList.add(cmt);
-                }
-                Rep_Adapter chat_adapter = new Rep_Adapter(Module_Chat.this,repList);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(Module_Chat.this);
-                rcv.setLayoutManager(layoutManager);
-                rcv.setAdapter(chat_adapter);
+        if((page-1)*5+index>=fatherList.size()){
+            return;
+        }
+        tvname.setText(fatherList.get((page-1)*5+index).getUserid());
+        tvdate.setText(fatherList.get((page-1)*5+index).getDate());
+        tvcontent.setText(fatherList.get((page-1)*5+index).getContent());
+        ArrayList<Comment> current_repList = new ArrayList<>();
+        for(int i=0;i<repList.size();i++){
+            if(repList.get(i).getFatherid().equals(fatherList.get((page-1)*5+index).getCommentid())){
+                current_repList.add(repList.get(i));
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        }
+        Rep_Adapter rep_adapter = new Rep_Adapter(current_repList);
+        rcv.setAdapter(rep_adapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Module_Chat.this);
+        rcv.setLayoutManager(layoutManager);
         tvrep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()){
                     case R.id.rep1:{
-                        Rep((page-1)*5+0);
+                        Rep((page-1)*5);
                         break;
                     }
                     case R.id.rep2:{
@@ -185,6 +228,17 @@ public class Module_Chat extends AppCompatActivity {
         });
     }
     void Rep(int index){
-        Toast.makeText(this, "Bạn đang trả lời" + index, Toast.LENGTH_SHORT).show();
+        TextView tv = findViewById(R.id.repwho);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fatherid = "-1";
+                tv.setVisibility(View.INVISIBLE);
+                button.setText("Bình luận");
+            }
+        });
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("Bạn đang trả lời "+ fatherList.get((page-1)*5+index).getUserid() + "\nNhấn vào dòng chữ này để bình luận bài viết");
+        fatherid = fatherList.get((page-1)*5+index).getCommentid();
     }
 }
