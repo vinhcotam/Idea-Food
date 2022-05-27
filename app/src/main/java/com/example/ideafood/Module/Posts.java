@@ -4,13 +4,13 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Posts {
-    String postid,date,header,postname,userid,category;
-    ArrayList content_post;
+    String postid, date, header, postname, userid, category;
+    ArrayList<String> content_post;
 
     public Posts() {
     }
 
-    public Posts(String postid, String date, String header, String postname, String userid, String category, ArrayList content_post) {
+    public Posts(String postid, String date, String header, String postname, String userid, String category, ArrayList<String> content_post) {
         this.postid = postid;
         this.date = date;
         this.header = header;
@@ -68,11 +68,13 @@ public class Posts {
         this.category = category;
     }
 
-    public ArrayList getContent_post() {
+    public ArrayList<String> getContent_post() {
         return content_post;
     }
 
-    public void setContent_post(ArrayList content_post) {
+    public void setContent_post(ArrayList<String> content_post) {
         this.content_post = content_post;
     }
 }
+
+

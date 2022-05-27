@@ -21,6 +21,8 @@ import com.example.ideafood.Module.Tag;
 import com.example.ideafood.Module.Video;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     Random random = new Random();
     final FirebaseDatabase database = FirebaseDatabase.getInstance("https://idea-food-cd7e7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference ref = database.getReference();
+    FirebaseStorage storage = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com");
+    StorageReference storageRef = storage.getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,9 +148,9 @@ public class MainActivity extends AppCompatActivity {
                     content_post.add(content2);
                     String date= String.valueOf(java.time.LocalDate.now());
                     String postid= String.valueOf(idpost);
-                    Video video=new Video( videoid,  "videoname",  videoUri, "7");
+                    Video video=new Video( videoid,  "videoname",  videoUri, postid);
                     FirebaseDatabase.getInstance().getReference().child("videos").push().setValue(video);
-                    Img img=new Img( imgid,  imgUri,  "a","7"  );
+                    Img img=new Img( imgid,  imgUri,  "a",postid );
                     FirebaseDatabase.getInstance().getReference().child("images").push().setValue(img);
                     Posts post= new Posts(postid,  date,  header,  title, "1",  category,  content_post);
                     FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
