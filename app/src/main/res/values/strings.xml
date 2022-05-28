@@ -5,4 +5,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hiderep">ẩn trả lời</string>
+    <string name="title">Idea Food</string>
+    <string name="username">Tài khoản</string>
+    <string name="password">Mật khẩu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="signup">Đăng ký</string>
+    <string name="email">Email</string>
 </resources>

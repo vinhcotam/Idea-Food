@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, Module_Chat.class);
+        Intent intent = new Intent(MainActivity.this, Login.class);
         startActivity(intent);
 
     }
