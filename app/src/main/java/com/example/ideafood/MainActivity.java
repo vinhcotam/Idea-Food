@@ -19,10 +19,13 @@ import com.example.ideafood.Module.Img;
 import com.example.ideafood.Module.Posts;
 import com.example.ideafood.Module.Tag;
 import com.example.ideafood.Module.Video;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -47,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance("https://idea-food-cd7e7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference ref = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com");
-    StorageReference storageRef = storage.getReference();
+    StorageReference storageRef,storageRef1,storageRef2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpost2);
-        Intent intent=new Intent(MainActivity.this,DetailPost.class);
-        startActivity(intent);
+//        Intent intent=new Intent(MainActivity.this,DetailPost.class);
+//        startActivity(intent);
 //        setContentView(R.layout.activity_testaddtag);
         anhXa();
         setOnClick();
@@ -134,25 +137,71 @@ public class MainActivity extends AppCompatActivity {
                 String title=et_namepost.getText().toString().trim();
                 String category=et_categorypost.getText().toString().trim();
                 String header=et_headerpost.getText().toString().trim();
+                int idpost = random.nextInt(10000);
+                int idvideo = random.nextInt(10000);
+                String videoid= String.valueOf(idvideo);
+                int idimg = random.nextInt(10000);
+                String imgid= String.valueOf(idimg);
+                int imgid1 = random.nextInt(10000);
+                String date= String.valueOf(java.time.LocalDate.now());
+                String postid= String.valueOf(idpost);
+                int imgname1=random.nextInt(1000);
+                int imgname2=random.nextInt(1000);
+                int videoname=random.nextInt(1000);
+
                 if(imgUri==null||img1Uri!=null||videoUri!=null||content1!=null
                         ||content2!=null||title!=null||category!=null||header!=null){
 
-                    int idpost = random.nextInt(10000);
-                    int idvideo = random.nextInt(10000);
-                    String videoid= String.valueOf(idvideo);
-                    int idimg = random.nextInt(10000);
-                    String imgid= String.valueOf(idimg);
-                    int imgid1 = random.nextInt(10000);
+//                    int idpost = random.nextInt(10000);
+//                    int idvideo = random.nextInt(10000);
+//                    String videoid= String.valueOf(idvideo);
+//                    int idimg = random.nextInt(10000);
+//                    String imgid= String.valueOf(idimg);
+//                    int imgid1 = random.nextInt(10000);
                     content_post=new ArrayList();
                     content_post.add(content1);
                     content_post.add(content2);
-                    String date= String.valueOf(java.time.LocalDate.now());
-                    String postid= String.valueOf(idpost);
-                    Video video=new Video( videoid,  "videoname",  videoUri, postid);
-                    FirebaseDatabase.getInstance().getReference().child("videos").push().setValue(video);
-                    Img img=new Img( imgid,  imgUri,  "a",postid );
-                    FirebaseDatabase.getInstance().getReference().child("images").push().setValue(img);
-                    Posts post= new Posts(postid,  date,  header,  title, "1",  category,  content_post);
+                    storageRef = storage.getReference("img/"+postid+"/"+imgname1);
+                    storageRef.putFile(selectedImageUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                }
+                            }).addOnCanceledListener(new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                        }
+                    });
+                    storageRef1 = storage.getReference("img/"+postid+"/"+imgname2);
+                    storageRef1.putFile(selectedImageUri1)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                }
+                            }).addOnCanceledListener(new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                        }
+                    });
+                    storageRef2 = storage.getReference("video/"+postid+"/"+videoname);
+                    storageRef2.putFile(selectedVideoUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                }
+                            }).addOnCanceledListener(new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                        }
+                    });
+//                    String date= String.valueOf(java.time.LocalDate.now());
+//                    String postid= String.valueOf(idpost);
+//                    Video video=new Video( videoid,  "videoname",  videoUri, postid);
+//                    FirebaseDatabase.getInstance().getReference().child("videos").push().setValue(video);
+//                    Img img=new Img( imgid,  imgUri,  "a",postid );
+//                    FirebaseDatabase.getInstance().getReference().child("images").push().setValue(img);
+                    boolean status=false;
+                    Posts post= new Posts(postid,  date,  header,  title, "1",  category,  content_post,status);
                     FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
                     Toast.makeText(MainActivity.this,"Bài đăng của bạn đang đợi được duyệt",Toast.LENGTH_LONG).show();
 

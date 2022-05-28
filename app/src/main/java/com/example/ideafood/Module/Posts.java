@@ -6,11 +6,12 @@ import java.util.ArrayList;
 public class Posts {
     String postid, date, header, postname, userid, category;
     ArrayList<String> content_post;
+    boolean status;
 
     public Posts() {
     }
 
-    public Posts(String postid, String date, String header, String postname, String userid, String category, ArrayList<String> content_post) {
+    public Posts(String postid, String date, String header, String postname, String userid, String category, ArrayList<String> content_post, boolean status) {
         this.postid = postid;
         this.date = date;
         this.header = header;
@@ -18,6 +19,7 @@ public class Posts {
         this.userid = userid;
         this.category = category;
         this.content_post = content_post;
+        this.status = status;
     }
 
     public String getPostid() {
@@ -74,6 +76,14 @@ public class Posts {
 
     public void setContent_post(ArrayList<String> content_post) {
         this.content_post = content_post;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
 
