@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpost2);
-//        Intent intent=new Intent(MainActivity.this,DetailPost.class);
-//        startActivity(intent);
+        Intent intent=new Intent(MainActivity.this,DetailPost.class);
+        startActivity(intent);
 //        setContentView(R.layout.activity_testaddtag);
         anhXa();
         setOnClick();
@@ -145,23 +145,16 @@ public class MainActivity extends AppCompatActivity {
                 int imgid1 = random.nextInt(10000);
                 String date= String.valueOf(java.time.LocalDate.now());
                 String postid= String.valueOf(idpost);
-                int imgname1=random.nextInt(1000);
-                int imgname2=random.nextInt(1000);
-                int videoname=random.nextInt(1000);
+//                int imgname1=random.nextInt(1000);
+//                int imgname2=random.nextInt(1000);
+//                int videoname=random.nextInt(1000);
 
                 if(imgUri==null||img1Uri!=null||videoUri!=null||content1!=null
                         ||content2!=null||title!=null||category!=null||header!=null){
-
-//                    int idpost = random.nextInt(10000);
-//                    int idvideo = random.nextInt(10000);
-//                    String videoid= String.valueOf(idvideo);
-//                    int idimg = random.nextInt(10000);
-//                    String imgid= String.valueOf(idimg);
-//                    int imgid1 = random.nextInt(10000);
                     content_post=new ArrayList();
                     content_post.add(content1);
                     content_post.add(content2);
-                    storageRef = storage.getReference("img/"+postid+"/"+imgname1);
+                    storageRef = storage.getReference("img1/"+postid+"/"+postid);
                     storageRef.putFile(selectedImageUri)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -172,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onCanceled() {
                         }
                     });
-                    storageRef1 = storage.getReference("img/"+postid+"/"+imgname2);
+                    storageRef1 = storage.getReference("img2/"+postid+"/"+postid);
                     storageRef1.putFile(selectedImageUri1)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -183,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onCanceled() {
                         }
                     });
-                    storageRef2 = storage.getReference("video/"+postid+"/"+videoname);
+                    storageRef2 = storage.getReference("video/"+postid+"/"+postid);
                     storageRef2.putFile(selectedVideoUri)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -203,6 +196,14 @@ public class MainActivity extends AppCompatActivity {
                     boolean status=false;
                     Posts post= new Posts(postid,  date,  header,  title, "1",  category,  content_post,status);
                     FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
+                    et_categorypost.setText("");
+                    et_headerpost.setText("");
+                    et_namecontent1.setText("");
+                    et_namepost.setText("");
+                    et_namecontent2.setText("");
+                    vv_video.setVideoURI(null);
+                    iv_img.setImageURI(null);
+                    iv_img1.setImageURI(null);
                     Toast.makeText(MainActivity.this,"Bài đăng của bạn đang đợi được duyệt",Toast.LENGTH_LONG).show();
 
                 }else{

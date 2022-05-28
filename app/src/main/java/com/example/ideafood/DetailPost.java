@@ -13,15 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.example.ideafood.Module.Img;
 import com.example.ideafood.Module.Posts;
 import com.example.ideafood.Module.Video;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -78,6 +82,7 @@ public class DetailPost extends AppCompatActivity {
 
             }
         });
+        loadVideo();
 //        Query qr_getImgPost=database.child("images");
 //        qr_getDetailPost.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -101,28 +106,43 @@ public class DetailPost extends AppCompatActivity {
 //
 //            }
 //        });
-        Query qr_getVideoPost=database.child("videos");
-        qr_getVideoPost.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot item:snapshot.getChildren()){
-                    Video video=item.getValue(Video.class);
-                    if(video.getPostid().equals("8799")){
-                        vv_videodp.setVideoURI(Uri.parse(video.getLink()));
-                        vv_videodp.start();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        Query qr_getVideoPost=database.child("videos");
+//        qr_getVideoPost.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot item:snapshot.getChildren()){
+//                    Video video=item.getValue(Video.class);
+//                    if(video.getPostid().equals("8799")){
+//                        vv_videodp.setVideoURI(Uri.parse(video.getLink()));
+//                        vv_videodp.start();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
+    FirebaseStorage storage = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com");
+    StorageReference storageRef;
+    private void loadVideo() {
+        storageRef=storage.getReference().child("img1/7872/7872");
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+//                iv_imgdp.setImageURI(uri);
+                Log.d("img",uri.toString());
+                String urlImage = uri.toString();
+                Glide.with(DetailPost.this).load("urlImage").into(iv_imgdp);
+            }
+        });
+//        return storageRef.toString();
 
 
+    }
 
 
     DatabaseReference database;
