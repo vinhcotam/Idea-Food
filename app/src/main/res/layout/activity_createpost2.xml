@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".createpost2">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Tạo bài viết"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Nhập tên bài viết"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_namepost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập tên bài viết ở đây"
+                tools:ignore="TouchTargetSizeCheck"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Nhập tiêu đề bài viết"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_headerpost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập tiêu đề bài viết ở đây"
+                tools:ignore="TouchTargetSizeCheck"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Nhập thể loại"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_categorypost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập thể loại bài viết ở đây"
+                tools:ignore="TouchTargetSizeCheck">
+            </EditText>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/id_spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Spinner>
+            <Button
+                android:layout_width="230dp"
+                android:id="@+id/btn_imgmainload"
+                android:text="Tải ảnh tiêu đề bài viết"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_imgmain"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_launcher_background">
+            </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="120dp"
+                android:id="@+id/btn_videoupload"
+                android:text="Tải video lên"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <VideoView
+                android:id="@+id/vv_video"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                >
+<!--                android:foreground="@drawable/ic_launcher_background">-->
+
+            </VideoView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Nhập nội dung thứ nhất"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/et_namecontent1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập nội dung thứ nhất ở đây"
+                tools:ignore="TouchTargetSizeCheck"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="120dp"
+                android:id="@+id/btn_imgload"
+                android:text="Tải ảnh 1 lên"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_launcher_background">
+            </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Nhập nội dung thứ hai"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/et_namecontent2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập nội dung thứ hai ở đây"
+                tools:ignore="TouchTargetSizeCheck"></EditText>
+            <!--        <hb.xvideoplayer.MxVideoPlayerWidget-->
+            <!--            android:id="@+id/mpw_video_player"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content" />-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="120dp"
+                android:id="@+id/btn_img1load"
+                android:text="Tải ảnh 2 lên"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_img1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_launcher_background">
+            </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:weightSum="10"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_weight="4"
+                android:id="@+id/btn_save"
+                android:text="Lưu lại"
+                android:layout_width="100dp"
+                android:layout_height="50dp">
+            </Button>
+            <TextView
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <Button
+                android:layout_weight="4"
+                android:id="@+id/btn_preview"
+                android:text="Xem trước"
+                android:layout_width="100dp"
+                android:layout_height="50dp">
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

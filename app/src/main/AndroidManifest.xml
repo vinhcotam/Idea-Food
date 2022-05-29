@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ideafood" >
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +26,15 @@
             android:exported="false" />
         <activity
             android:name=".BoxAddComment"
+            android:exported="false" />
+        <activity
+            android:name=".DetailPost"
+            android:exported="false" />
+        <activity
+            android:name=".preview"
+            android:exported="false" />
+        <activity
+            android:name=".createpost2"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

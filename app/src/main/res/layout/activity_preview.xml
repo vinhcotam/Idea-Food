@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".preview">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Tên bài viết"
+            android:textSize="30dp"
+            android:id="@+id/tv_title"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+        </TextView>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Người đăng"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:text="Ngày đăng"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content">
+            </TextView>
+            <Button
+                android:text="Thêm vào danh sách"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </Button>
+
+        </LinearLayout>
+        <LinearLayout
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="20dp"
+                android:id="@+id/tv_headerpost_preview"
+                android:text="Tiêu đề bài viết bài viết"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/tv_categorypost_preview"
+                android:text="Thể loại bài viết"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <TextView
+                android:text="Nội dung 1"
+                android:textSize="15dp"
+                android:id="@+id/tv_content1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <ImageView
+                android:padding="5dp"
+                android:id="@+id/iv_img11"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark"></ImageView>
+
+            <TextView
+                android:text="Nội dung 2"
+                android:textSize="15dp"
+                android:id="@+id/tv_content2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <ImageView
+                android:padding="5dp"
+                android:id="@+id/iv_img21"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark">
+            </ImageView>
+            <TextView
+                android:text="Video hướng dẫn"
+                android:textSize="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <VideoView
+                android:id="@+id/vv_video_preview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal">
+
+            </VideoView>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
