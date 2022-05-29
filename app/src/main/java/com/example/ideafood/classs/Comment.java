@@ -8,28 +8,9 @@ public class Comment {
     String date;
     String fatherid;
     String postid;
-    String userid;
-
-    public Comment(String commentid, String content, String date, String fatherid, String postid, String userid) {
-        this.commentid = commentid;
-        this.content = content;
-        this.date = date;
-        this.fatherid = fatherid;
-        this.postid = postid;
-        this.userid = userid;
-    }
+    String username;
 
     public Comment() {
-    }
-    //test
-    public Comment(String content) {
-        commentid = Integer.toString((new Random()).nextInt());
-        this.content = content;
-        this.date = "1/1/2000";
-        this.fatherid = "-1";
-        this.postid = "post_test";
-        this.userid = "user_test";
-
     }
 
     public String getCommentid() {
@@ -72,11 +53,20 @@ public class Comment {
         this.postid = postid;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Comment(String commentid, String content, String date, String fatherid, String postid, String username) {
+        this.commentid = commentid;
+        this.content = content;
+        this.date = date;
+        this.fatherid = fatherid;
+        this.postid = postid;
+        this.username = username;
     }
 }

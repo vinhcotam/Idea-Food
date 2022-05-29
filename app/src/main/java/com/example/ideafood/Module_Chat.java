@@ -241,7 +241,7 @@ public class Module_Chat extends AppCompatActivity {
             return;
         }
         layoutcmt.setVisibility(View.VISIBLE);
-        tvname.setText(fatherList.get((page-1)*5+index).getUserid());
+        tvname.setText(fatherList.get((page-1)*5+index).getUsername());
         tvdate.setText(fatherList.get((page-1)*5+index).getDate());
         tvcontent.setText(fatherList.get((page-1)*5+index).getContent());
         ArrayList<Comment> current_repList = new ArrayList<>();
@@ -327,7 +327,7 @@ public class Module_Chat extends AppCompatActivity {
             }
         });
         tv.setVisibility(View.VISIBLE);
-        tv.setText("Bạn đang trả lời "+ fatherList.get((page-1)*5+index).getUserid() + "\nNhấn vào dòng chữ này để bình luận bài viết");
+        tv.setText("Bạn đang trả lời "+ fatherList.get((page-1)*5+index).getUsername() + "\nNhấn vào dòng chữ này để bình luận bài viết");
         fatherid = fatherList.get((page-1)*5+index).getCommentid();
     }
     //tính năng ẩn phần repcomment

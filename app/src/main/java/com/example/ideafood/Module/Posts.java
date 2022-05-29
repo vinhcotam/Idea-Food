@@ -54,11 +54,11 @@ public class Posts {
         this.postname = postname;
     }
 
-    public String getUserid() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUserid(String userid) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

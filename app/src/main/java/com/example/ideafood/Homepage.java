@@ -2,7 +2,6 @@ package com.example.ideafood;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,7 +17,7 @@ import android.widget.ListView;
 import android.widget.Toolbar;
 
 import com.example.ideafood.Adapter.ListView_Post_Adapter;
-import com.example.ideafood.classs.Post;
+import com.example.ideafood.Module.Posts;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -113,20 +112,20 @@ public class Homepage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     DrawerLayout mDrawerLayout;
-    ArrayList<Post> postList;
+    ArrayList<Posts> postList;
     DatabaseReference database;
     void ConnectDB(){
         database = FirebaseDatabase.getInstance().getReference();
         GetPost();
     }
     void GetPost(){
-        postList = new ArrayList<Post>();
+        postList = new ArrayList<Posts>();
         Query allPost = database.child("post").orderByChild("status").equalTo(true);
         allPost.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item:snapshot.getChildren()){
-                    Post p = item.getValue(Post.class);
+                    Posts p = item.getValue(Posts.class);
                     postList.add(p);
                 }
                 ListView lv = findViewById(R.id.homepage_lv_post);
@@ -135,10 +134,11 @@ public class Homepage extends AppCompatActivity {
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(Homepage.this, PostDetail.class);
+                        Intent intent = new Intent(Homepage.this, DetailPost.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("username", username);
                         bundle.putString("postid", postList.get(position).getPostid());
+                        startActivity(intent);
                     }
                 });
             }

@@ -23,9 +23,9 @@ public class BoxAddComment extends AppCompatActivity {
             public void onClick(View view) {
                 et = findViewById(R.id.addcomment_entercontent);
                 String content = et.getText().toString();
-                Comment cmt = new Comment(content);
-                FirebaseDatabase.getInstance().getReference().child("comments").push().setValue(cmt);
-                Toast.makeText(BoxAddComment.this, "Binh luan thanh cong", Toast.LENGTH_SHORT).show();
+//                Comment cmt = new Comment(content);
+//                FirebaseDatabase.getInstance().getReference().child("comments").push().setValue(cmt);
+//                Toast.makeText(BoxAddComment.this, "Binh luan thanh cong", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -41,7 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         String date=posts.getDate();
         ArrayList content_post=posts.getContent_post();
         String postid=posts.getPostid();
-        String userid=posts.getUserid();
+        String userid=posts.getUsername();
         String category=posts.getCategory();
 //        holder.tv_contentbvtt.setText((CharSequence) content_post);
         holder.tv_postnamebvtt.setText(postname);

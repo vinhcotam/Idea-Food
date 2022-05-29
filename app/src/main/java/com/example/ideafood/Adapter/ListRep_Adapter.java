@@ -42,7 +42,7 @@ public class ListRep_Adapter extends BaseAdapter {
         else viewRep = convertView;
         Comment cmt = (Comment) getItem(position);
         TextView tv = viewRep.findViewById(R.id.repid);
-        tv.setText(cmt.getUserid());
+        tv.setText(cmt.getUsername());
         tv = viewRep.findViewById(R.id.repcontent);
         tv.setText(cmt.getContent());
         return viewRep;
