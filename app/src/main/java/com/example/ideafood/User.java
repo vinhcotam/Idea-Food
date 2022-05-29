@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,9 +27,14 @@ public class User extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        listView = findViewById(R.id.listview_user);
+        loaduser();
+
+    }
+    void loaduser(){
         database = FirebaseDatabase.getInstance().getReference();
-        Query Qget_user = database.child("Account");
-        Qget_user.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query allAccount = database.child("Account");
+        allAccount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listnguoidung = new ArrayList<>();
@@ -35,14 +42,12 @@ public class User extends AppCompatActivity {
                     Nguoidung nguoidung = item.getValue(Nguoidung.class);
                     listnguoidung.add(nguoidung);
                 }
+                adapterUser = new AdapterUser(User.this, R.layout.lv_user, listnguoidung);
+                listView.setAdapter(adapterUser);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        listView = findViewById(R.id.listview_user);
-        adapterUser = new AdapterUser(this, R.layout.lv_user, listnguoidung);
-        listView.setAdapter(adapterUser);
-
     }
 }
