@@ -6,30 +6,31 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:paddingVertical="20dp">
+
     <ImageView
         android:id="@+id/header_postimage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="fitCenter"
         android:src="@drawable/noimg"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/post_category"/>
+
     <TextView
         android:id="@+id/post_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/border"
-        android:textColor="@color/black"
         android:paddingHorizontal="8dp"
         android:text="TextView"
-        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/post_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_postimage" />
 
     <TextView
         android:id="@+id/post_header"

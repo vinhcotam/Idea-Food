@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toolbar;
@@ -131,6 +132,15 @@ public class Homepage extends AppCompatActivity {
                 ListView lv = findViewById(R.id.homepage_lv_post);
                 Adapter adapter = new ListView_Post_Adapter(postList);
                 lv.setAdapter((ListAdapter) adapter);
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(Homepage.this, PostDetail.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username", username);
+                        bundle.putString("postid", postList.get(position).getPostid());
+                    }
+                });
             }
 
             @Override
