@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IdeaFood">
         <activity
-            android:name=".dangky"
+            android:name=".User"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

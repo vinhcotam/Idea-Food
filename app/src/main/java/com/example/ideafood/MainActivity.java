@@ -23,50 +23,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
     public class MainActivity extends AppCompatActivity {
-    TextView tv_dky;
-    EditText edt_tk,edt_mk;
-    FirebaseAuth fb;
-    Button btn_dnhap;
-    ArrayList<Account>;
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv_dky = findViewById(R.id.tv_dangky);
-        edt_tk = findViewById(R.id.edT_taikhoan);
-        edt_mk = findViewById(R.id.edT_matkhau);
-        btn_dnhap = findViewById(R.id.btn_dangnhap);
-        DatabaseReference fb = FirebaseDatabase.getInstance().getReference();
-        btn_dnhap.setOnClickListener(new View.OnClickListener() {
+        button = findViewById(R.id.bt_chuyen);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fb.child("Account").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                })
-                if(TextUtils.isEmpty(edt_tk.getText().toString())){
-                    Toast.makeText(MainActivity.this,"Vui lòng nhập tài khoản!!",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(edt_mk.getText().toString())){
-                    Toast.makeText(MainActivity.this,"Vui lòng nhập mật khẩu!!",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            }
-        });
-        tv_dky.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,dangky.class);
-                startActivity(intent);
+            Intent intent = new Intent(MainActivity.this,User.class);
+            startActivity(intent);
             }
         });
     }
