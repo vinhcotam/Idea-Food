@@ -56,7 +56,14 @@ public class ListView_Post_Adapter extends BaseAdapter {
         Post p = postList.get(position);
         ImageView tmv = viewList.findViewById(R.id.header_postimage);
         StorageReference storageReference = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("imgMain/9779/9779");
-        Glide.with(parent.getContext()).load(storageReference).into(tmv);
+        Log.d("link", String.valueOf(storageReference));
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(parent.getContext()).load(uri).into(tmv);
+            }
+        });
+
 
         TextView tv = viewList.findViewById(R.id.post_header);
         tv.setText(p.getHeader());
