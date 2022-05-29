@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/nav_gohome"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/homepage" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Phân loại" />
+        <group android:id="@+id/group_category"
+            android:visible="false">
+                <item
+                    android:id="@+id/douong"
+                    android:title="Đồ uống"
+                    />
+                <item
+                    android:id="@+id/thucannhanh"
+                    android:title="Thức ăn nhanh"
+                    />
+                <item
+                    android:id="@+id/quanan"
+                    android:title="Quán ăn"
+                    />
+                <item
+                    android:id="@+id/dochay"
+                    android:title="Đồ chay"
+                    />
+        </group>
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/login" />
+</menu>

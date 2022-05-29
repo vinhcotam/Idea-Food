@@ -61,6 +61,10 @@ public class Login extends AppCompatActivity {
                             if(a.getPassword().equals(password)){
                                 Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                 checkOK=true;
+                                Intent intent = new Intent(Login.this, Homepage.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("username", username);
+                                startActivity(intent);
                             }
                         }
                         if(!checkOK){
