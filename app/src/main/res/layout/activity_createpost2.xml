@@ -65,11 +65,17 @@
                 android:hint="Nhập thể loại bài viết ở đây"
                 tools:ignore="TouchTargetSizeCheck">
             </EditText>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/id_spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Spinner>
             <Button
                 android:layout_width="230dp"
                 android:id="@+id/btn_imgmainload"

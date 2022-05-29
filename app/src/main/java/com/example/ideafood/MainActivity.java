@@ -1,5 +1,6 @@
 package com.example.ideafood;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -8,10 +9,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -21,8 +24,11 @@ import com.example.ideafood.Module.Tag;
 import com.example.ideafood.Module.Video;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -38,11 +44,14 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     VideoView vv_video;
     ImageView iv_img,iv_img1,iv_imgmain;
+    Spinner id_spinner1;
     int SELECT_PICTURE = 200;
     int SELECT_PICTURE1 = 220;
     int SELECT_PICTUREMAIN = 210;
     int SELECT_VIDEO_REQUEST=100;
     ArrayList content_post;
+    ArrayList<String> spinnerls;
+    ArrayAdapter<String> adapter;
     Button btn_save,btn_preview;
     EditText et_namepost,et_namecontent1,et_namecontent2,et_categorypost,et_headerpost;
     MediaController mc;
@@ -56,11 +65,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpost2);
-        Intent intent=new Intent(MainActivity.this,DetailPost.class);
-        startActivity(intent);
+//        Intent intent=new Intent(MainActivity.this,DetailPost.class);
+//        startActivity(intent);
+//                Intent intent=new Intent(MainActivity.this,testspinner.class);
+//        startActivity(intent);
 //        setContentView(R.layout.activity_testaddtag);
         anhXa();
+        id_spinner1=findViewById(R.id.id_spinner1);
+        spinnerls=new ArrayList<>();
+        adapter=new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item,spinnerls);
+        id_spinner1.setAdapter(adapter);
+        showCategory();
         setOnClick();
+    }
+
+    private void showCategory() {
+        ref.child("tags").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot item:snapshot.getChildren()){
+                    Tag tag=item.getValue(Tag.class);
+                    spinnerls.add(tag.getCategory());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void setOnClick() {

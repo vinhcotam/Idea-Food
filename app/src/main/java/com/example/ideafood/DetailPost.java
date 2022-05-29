@@ -90,12 +90,12 @@ public class DetailPost extends AppCompatActivity {
 
             }
         });
-        loadVideo();
+        loadVideoImg();
 
     }
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com");
     StorageReference storageRef;
-    private void loadVideo() {
+    private void loadVideoImg() {
         storageRef=storage.getReference().child("img1/5790/5790");
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -119,19 +119,12 @@ public class DetailPost extends AppCompatActivity {
                 Glide.with(DetailPost.this).load(urlImage).into(iv_img1dp);
             }
         });
-//        mc=new MediaController(DetailPost.this);
-//        vv_videodp.setMediaController(mc);
-//        String path="https://firebasestorage.googleapis.com/v0/b/idea-food-cd7e7.appspot.com/o/video%2F7872%2F7872?alt=media&token=cf17fa1a-c420-4e31-b66f-6ac7e3d21744";
-//        vv_videodp.setVideoURI(Uri.parse(path));
-//        Log.d("video",path);
-//        vv_videodp.requestFocus();
-//        vv_videodp.start();
+
         storageRef=storage.getReference().child("video/7872/7872");
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Log.d("video",uri.toString());
-//                vv_videodp.setVideoPath(uri.toString());
                 vv_videodp.setVideoURI(uri);
                 vv_videodp.start();
             }

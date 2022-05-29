@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IdeaFood">
         <activity
+            android:name=".testspinner"
+            android:exported="false" />
+        <activity
             android:name=".DetailPost"
             android:exported="false" />
         <activity
