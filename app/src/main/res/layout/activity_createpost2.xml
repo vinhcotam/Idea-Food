@@ -70,7 +70,27 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+            <Button
+                android:layout_width="230dp"
+                android:id="@+id/btn_imgmainload"
+                android:text="Tải ảnh tiêu đề bài viết"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
 
+            </Button>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_imgmain"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_launcher_background">
+            </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
             <Button
                 android:layout_width="120dp"
                 android:id="@+id/btn_videoupload"
@@ -112,10 +132,11 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="120dp"
                 android:id="@+id/btn_imgload"
-                android:text="Tải ảnh lên"
+                android:text="Tải ảnh 1 lên"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content">
 
@@ -157,7 +178,7 @@
             <Button
                 android:layout_width="120dp"
                 android:id="@+id/btn_img1load"
-                android:text="Tải ảnh lên"
+                android:text="Tải ảnh 2 lên"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content">
 

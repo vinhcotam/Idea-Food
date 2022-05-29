@@ -4,19 +4,19 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Posts {
-    String postid, date, header, postname, userid, category;
+    String postid, date, header, postname, username, category;
     ArrayList<String> content_post;
     boolean status;
 
     public Posts() {
     }
 
-    public Posts(String postid, String date, String header, String postname, String userid, String category, ArrayList<String> content_post, boolean status) {
+    public Posts(String postid, String date, String header, String postname, String username, String category, ArrayList<String> content_post, boolean status) {
         this.postid = postid;
         this.date = date;
         this.header = header;
         this.postname = postname;
-        this.userid = userid;
+        this.username = username;
         this.category = category;
         this.content_post = content_post;
         this.status = status;
@@ -55,11 +55,11 @@ public class Posts {
     }
 
     public String getUserid() {
-        return userid;
+        return username;
     }
 
     public void setUserid(String userid) {
-        this.userid = userid;
+        this.username = username;
     }
 
     public String getCategory() {
