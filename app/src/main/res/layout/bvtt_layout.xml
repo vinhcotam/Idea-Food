@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
         </TextView>
         <TextView
-            android:text="Nội dung bài viết"
+            android:text="Thể loại bài viết"
             android:id="@+id/tv_categorybvtt"
             android:textSize="20dp"
             android:layout_width="match_parent"

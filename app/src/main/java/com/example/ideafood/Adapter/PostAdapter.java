@@ -53,9 +53,9 @@ public class PostAdapter extends BaseAdapter {
         Posts p = postTTList.get(i);
         ImageView iv_imgbvtt;
         TextView tv_categorybvtt,tv_postnamebvtt;
-        iv_imgbvtt=view.findViewById(R.id.iv_imgbvtt);
-        tv_postnamebvtt=view.findViewById(R.id.tv_postnamebvtt);
-        tv_categorybvtt=view.findViewById(R.id.tv_categorybvtt);
+        iv_imgbvtt=viewList.findViewById(R.id.iv_imgbvtt);
+        tv_postnamebvtt=viewList.findViewById(R.id.tv_postnamebvtt);
+        tv_categorybvtt=viewList.findViewById(R.id.tv_categorybvtt);
         StorageReference storageReference = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("imgMain/"+p.getPostid()+"/"+p.getPostid());
         Log.d("link", String.valueOf(storageReference));
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

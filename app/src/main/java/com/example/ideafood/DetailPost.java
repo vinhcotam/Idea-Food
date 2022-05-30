@@ -12,10 +12,13 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.example.ideafood.Adapter.PostAdapter;
 import com.example.ideafood.Adapter.Rep_Adapter;
 import com.example.ideafood.Module.Img;
 import com.example.ideafood.Module.Posts;
@@ -63,6 +67,38 @@ public class DetailPost extends AppCompatActivity {
     }
 
     private void loadPostTT() {
+        mListPost=new ArrayList<Posts>();
+        Query postTT=database.child("post").orderByChild("category").equalTo("món ăn đường phố");
+//        Query postTT=database.child("post").orderByChild("category").equalTo(tv_categorydp.getText().toString().trim());
+        Log.d("sql",postTT.toString());
+        Log.d("category",tv_categorydp.getText().toString().trim());
+        postTT.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot item:snapshot.getChildren()){
+                    Posts post=item.getValue(Posts.class);
+                    mListPost.add(post);
+                }
+                Adapter adapter=new PostAdapter(mListPost);
+                lv_bvtt.setAdapter((ListAdapter) adapter);
+                lv_bvtt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent=new Intent(DetailPost.this,DetailPost.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putString("postid",mListPost.get(i).getPostid());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                getDatafromIntent();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //Obj
@@ -135,7 +171,7 @@ public class DetailPost extends AppCompatActivity {
                                 tv_headerdp.setText(post.getHeader());
                                 tv_user_post.setText(post.getUsername());
                                 tv_date_postdp.append(" "+post.getDate());
-                                tv_categorydp.append(" "+post.getCategory());
+                                tv_categorydp.setText(post.getCategory());
                                 for(int i=0;i<post.getContent_post().size();i++){
                                     tv_content1dp.setText(post.getContent_post().get(0));
                                     tv_content2dp.setText(post.getContent_post().get(1));
