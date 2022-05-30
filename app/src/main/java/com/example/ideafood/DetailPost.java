@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class DetailPost extends AppCompatActivity {
     TextView tv_headerdp,tv_user_post,tv_date_postdp,tv_categorydp,tv_content1dp,tv_content2dp;
     ImageView iv_imgdp,iv_img1dp;
     VideoView vv_videodp;
-    RecyclerView rcv_bvtt;
+    ListView lv_bvtt;
     MediaController mc;
 
     @Override
@@ -56,9 +57,14 @@ public class DetailPost extends AppCompatActivity {
         anhXa();
         ConnectDB();
         loadDetailPost();
+        loadPostTT();
         LoadComment();
         SetEvent();
     }
+
+    private void loadPostTT() {
+    }
+
     //Obj
     TextView textView;
     Button button;
@@ -110,7 +116,7 @@ public class DetailPost extends AppCompatActivity {
         iv_imgdp=findViewById(R.id.iv_imgdp);
         iv_img1dp=findViewById(R.id.iv_img1dp);
         vv_videodp=findViewById(R.id.vv_videodp);
-        rcv_bvtt=findViewById(R.id.rcv_bvtt);
+        lv_bvtt=findViewById(R.id.lv_bvtt);
 //        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(DetailPost.this);
     }
 
