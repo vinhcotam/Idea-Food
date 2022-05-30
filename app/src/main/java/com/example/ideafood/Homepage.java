@@ -138,6 +138,7 @@ public class Homepage extends AppCompatActivity {
                         Bundle bundle = new Bundle();
                         bundle.putString("username", username);
                         bundle.putString("postid", postList.get(position).getPostid());
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 });

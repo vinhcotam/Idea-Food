@@ -94,7 +94,7 @@ public class DetailPost extends AppCompatActivity {
             username = bundle.getString("username");
         }
         catch (Exception e){
-
+            username = "khách";
         }
     }
 
@@ -147,7 +147,7 @@ public class DetailPost extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com");
     StorageReference storageRef;
     private void loadVideoImg() {
-        storageRef=storage.getReference().child("img1/5790/5790");
+        storageRef=storage.getReference().child("img1/"+postid+"/"+postid);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -159,7 +159,7 @@ public class DetailPost extends AppCompatActivity {
         });
 //        return storageRef.toString();
 
-        storageRef=storage.getReference().child("img2/5790/5790");
+        storageRef=storage.getReference().child("img2/"+postid+"/"+postid);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -282,13 +282,16 @@ public class DetailPost extends AppCompatActivity {
     //tải các comment trong post và đưa vào mảng
     void LoadComment(){
         commentList = new ArrayList<>();
-        Query Qget_comment = database.child("comments").child("postid").equalTo(postid);
+        Query Qget_comment = database.child("comments");
         Qget_comment.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item:snapshot.getChildren()){
                     Comment cmt = item.getValue(Comment.class);
-                    commentList.add(cmt);
+                    if(cmt.getPostid().equals(postid)){
+
+                        commentList.add(cmt);
+                    }
                 }
                 //phân loại comment
                 fatherList = new ArrayList<>();
