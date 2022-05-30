@@ -1,0 +1,35 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+drawable circle_red
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable idea_food
+drawable idea_studio
+drawable next
+drawable welcome
+id chuyen
+id layout_bottom
+id layout_next
+id next
+id skip
+id start
+id view
+layout activity_main
+layout activity_man_hinh
+layout fragment_man1
+layout fragment_man2
+layout fragment_man3
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string hello_blank_fragment
+string next
+string skip
+style Theme.ManHinh
