@@ -68,16 +68,21 @@ public class DetailPost extends AppCompatActivity {
 
     private void loadPostTT() {
         mListPost=new ArrayList<Posts>();
-        Query postTT=database.child("post").orderByChild("category").equalTo("món ăn đường phố");
+
+        Query postTT=database.child("post");
 //        Query postTT=database.child("post").orderByChild("category").equalTo(tv_categorydp.getText().toString().trim());
-        Log.d("sql",postTT.toString());
-        Log.d("category",tv_categorydp.getText().toString().trim());
+
         postTT.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item:snapshot.getChildren()){
+
                     Posts post=item.getValue(Posts.class);
-                    mListPost.add(post);
+                    if(post.getCategory().equals(category)&&post.getPostid()!=postid){
+                        mListPost.add(post);
+                    }
+
+
                 }
                 Adapter adapter=new PostAdapter(mListPost);
                 lv_bvtt.setAdapter((ListAdapter) adapter);
@@ -116,6 +121,7 @@ public class DetailPost extends AppCompatActivity {
     String content="";
     String date="";
     String commentid="";
+    String category;
     ArrayList<Comment> fatherList;
     ArrayList<Comment> repList;
     int page = 1;
@@ -138,6 +144,11 @@ public class DetailPost extends AppCompatActivity {
         catch (Exception e){
             username = "khách";
         }
+        try{
+            category=bundle.getString("category");
+        }catch (Exception e){
+
+        }
     }
 
     private void anhXa() {
@@ -159,13 +170,12 @@ public class DetailPost extends AppCompatActivity {
         qr_getDetailPost.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                     for(DataSnapshot item:snapshot.getChildren()){
                         Posts post=item.getValue(Posts.class);
 //                        Img img=item.getValue(Img.class);
 //                        Log.d("name","name: "+img.getLinkimg());
                         Log.d("name","name: "+post.getPostid());
-                        if(post.getPostid().equals("5790")){
+                        if(post.getPostid().equals(postid)){
                                 tv_headerdp.setText(post.getHeader());
                                 tv_user_post.setText(post.getUsername());
                                 tv_date_postdp.append(" "+post.getDate());

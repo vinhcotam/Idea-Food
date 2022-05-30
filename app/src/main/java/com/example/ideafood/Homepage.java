@@ -136,6 +136,7 @@ public class Homepage extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(Homepage.this, DetailPost.class);
                         Bundle bundle = new Bundle();
+                        bundle.putString("category", postList.get(position).getCategory());
                         bundle.putString("username", username);
                         bundle.putString("postid", postList.get(position).getPostid());
                         intent.putExtras(bundle);
