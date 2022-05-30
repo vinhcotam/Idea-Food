@@ -1,4 +1,4 @@
-package com.example.manhinh;
+package com.example.ideafood;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.ideafood.R;
+
 import me.relex.circleindicator.CircleIndicator;
 
 public class ManHinh extends AppCompatActivity {
@@ -20,7 +22,7 @@ public class ManHinh extends AppCompatActivity {
     private CircleIndicator circleIndicator;
     private LinearLayout next;
 
-    private ViewPagerAdapter viewPagerAdapter;
+    private com.example.ideafood.ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class ManHinh extends AppCompatActivity {
 
         initUI();
 
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter = new com.example.ideafood.ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
 
         circleIndicator.setViewPager(viewPager);

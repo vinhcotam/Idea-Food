@@ -1,4 +1,4 @@
-package com.example.manhinh;
+package com.example.ideafood;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Man3#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.ideafood.MainActivity;
+import com.example.ideafood.R;
+
+
 public class Man3 extends Fragment {
     private Button btnbd;
     private View view;
@@ -33,7 +32,7 @@ public class Man3 extends Fragment {
         btnbd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(), BoxAddComment.class);
                 getActivity().startActivity(intent);
             }
         });

@@ -16,7 +16,8 @@
             android:name=".BoxAddComment"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+
+            android:name=".ManHinh"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

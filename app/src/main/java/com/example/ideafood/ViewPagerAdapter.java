@@ -1,4 +1,4 @@
-package com.example.manhinh;
+package com.example.ideafood;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

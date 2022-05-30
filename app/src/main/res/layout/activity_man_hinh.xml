@@ -33,7 +33,7 @@
     <me.relex.circleindicator.CircleIndicator
             android:id="@+id/chuyen"
             android:layout_width="wrap_content"
-            app:ci_drawable="@drawable/circle_red"
+            app:ci_drawable="@drawable/idea_food"
             android:layout_centerVertical="true"
             android:layout_height="30dp"/>
 
