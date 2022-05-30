@@ -57,7 +57,6 @@ public class Rep_Adapter extends RecyclerView.Adapter<Rep_Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comment cmt = repList.get(position);
-        String name = cmt.getUsername();
         holder.tvUser.setText(cmt.getUsername());
         holder.tvContent.setText(cmt.getContent());
         holder.tvDate.setText(cmt.getDate());

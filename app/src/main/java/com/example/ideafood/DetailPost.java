@@ -134,11 +134,9 @@ public class DetailPost extends AppCompatActivity {
         }
         try {
             username = bundle.getString("username");
-            if(username.equals("")){
-                username = "khách";
-            }
         }
         catch (Exception e){
+            username = "khách";
         }
     }
 
