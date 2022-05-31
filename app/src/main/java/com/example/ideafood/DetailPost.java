@@ -69,16 +69,15 @@ public class DetailPost extends AppCompatActivity {
     private void loadPostTT() {
         mListPost=new ArrayList<Posts>();
 
-        Query postTT=database.child("post");
+        Query postTT=database.child("post").orderByChild("category").equalTo(category);
 //        Query postTT=database.child("post").orderByChild("category").equalTo(tv_categorydp.getText().toString().trim());
 
         postTT.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item:snapshot.getChildren()){
-
                     Posts post=item.getValue(Posts.class);
-                    if(post.getCategory().equals(category)&&post.getPostid()!=postid){
+                    if(!post.getPostid().equals(postid)){
                         mListPost.add(post);
                     }
 
@@ -92,6 +91,7 @@ public class DetailPost extends AppCompatActivity {
                         Intent intent=new Intent(DetailPost.this,DetailPost.class);
                         Bundle bundle=new Bundle();
                         bundle.putString("postid",mListPost.get(i).getPostid());
+                        bundle.putString("category",mListPost.get(i).getCategory());
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }
