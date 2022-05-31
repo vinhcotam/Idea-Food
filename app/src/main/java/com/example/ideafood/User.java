@@ -3,8 +3,12 @@ package com.example.ideafood;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,17 +26,24 @@ public class User extends AppCompatActivity {
     ArrayList<Nguoidung> listnguoidung= null;
     AdapterUser adapterUser;
     DatabaseReference database;
+    EditText edText_search;
+    ImageButton imgBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         listView = findViewById(R.id.listview_user);
+        edText_search = findViewById(R.id.edT_timkiem);
+        imgBtn = findViewById(R.id.bt_TimKiem);
+        ConnectDB();
         loaduser();
-
+        infodetail();
+    }
+    void ConnectDB(){
+        database = FirebaseDatabase.getInstance().getReference();
     }
     void loaduser(){
-        database = FirebaseDatabase.getInstance().getReference();
         Query allAccount = database.child("Account");
         allAccount.addValueEventListener(new ValueEventListener() {
             @Override
@@ -47,6 +58,30 @@ public class User extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    void infodetail(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(User.this,Infodetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Username",listnguoidung.get(i).username);
+                bundle.putString("Password",listnguoidung.get(i).password);
+                bundle.putString("Email",listnguoidung.get(i).email);
+                bundle.putString("Level",listnguoidung.get(i).level);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+    void search(){
+        imgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            String search = edText_search.getText().toString();
+
             }
         });
     }
