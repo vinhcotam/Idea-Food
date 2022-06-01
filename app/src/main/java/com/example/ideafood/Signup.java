@@ -3,6 +3,7 @@ package com.example.ideafood;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,7 @@ public class Signup extends AppCompatActivity {
                 String email = et.getText().toString();
                 et = findViewById(R.id.sign_password);
                 String password = et.getText().toString();
-                Account a = new Account(username, password, "1", email);
+                Account a = new Account(username, password, "2", email);
                 Query allAccount = database.child("Account").orderByChild("username").equalTo(username);
                 allAccount.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -54,6 +55,7 @@ public class Signup extends AppCompatActivity {
                         if(!contain){
                             FirebaseDatabase.getInstance().getReference().child("Account").push().setValue(a);
                             Toast.makeText(Signup.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
+                            Signup.this.finish();
                         }
                     }
 

@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ideafood.Adapter.ViewPagerAdapter;
+import com.example.ideafood.Homepage;
 import com.example.ideafood.R;
 
 
@@ -44,6 +47,14 @@ public class Welcome extends AppCompatActivity {
                 if (position ==2){
                     skip.setVisibility(View.GONE);
                     layoutBottom.setVisibility(View.GONE);
+                    Button button = findViewById(R.id.start);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Welcome.this, Homepage.class);
+                            startActivity(intent);
+                        }
+                    });
                 } else {
                     skip.setVisibility(View.VISIBLE);
                     layoutBottom.setVisibility(View.VISIBLE);

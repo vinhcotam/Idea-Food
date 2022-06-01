@@ -1,10 +1,12 @@
 package com.example.ideafood;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -249,8 +251,36 @@ public class DetailPost extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendComment();
-                LoadComment();
+                if(username.equals("")){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(DetailPost.this);
+                    builder1.setMessage("Bạn cần đăng nhập để sử dụng chức năng này");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "Đăng nhập",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    Intent intent = new Intent(DetailPost.this, Login.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "Thôi",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                else {
+                    SendComment();
+                    LoadComment();
+                }
             }
         });
         //thoát khỏi trạng thái trả lời bình luận của 1 ai đó

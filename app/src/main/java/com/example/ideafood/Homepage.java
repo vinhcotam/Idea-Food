@@ -8,12 +8,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.ideafood.Adapter.ListView_Post_Adapter;
@@ -101,6 +104,25 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+        EditText editText = findViewById(R.id.ET_SearchPost);
+        editText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        && i == KeyEvent.KEYCODE_ENTER) {
+                    String tukhoa = editText.getText().toString();
+                    int dem=0;
+                    for(int index=0;index<postList.size();index++){
+                        if(postList.get(index).getHeader().contains(tukhoa)){
+                            dem++;
+                        }
+                    }
+                    Toast.makeText(Homepage.this, "Có "+dem+" kết quả", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
