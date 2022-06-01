@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_infodetail.xml" value="0.4" />
+        <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_changepass.xml" value="0.2421875" />
+        <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_infodetail.xml" value="0.264" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_user.xml" value="0.264" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/lv_bai_viet.xml" value="0.4" />
@@ -35,7 +36,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.4" />
+        <option name="scale" value="0.264" />
       </ProjectState>
     </option>
   </component>

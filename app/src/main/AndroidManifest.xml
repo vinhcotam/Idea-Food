@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IdeaFood">
         <activity
+            android:name=".changepass"
+            android:exported="false" />
+        <activity
             android:name=".Infodetail"
             android:exported="false" />
         <activity
