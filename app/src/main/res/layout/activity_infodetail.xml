@@ -9,9 +9,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp">
+        android:orientation="vertical">
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
@@ -24,14 +22,13 @@
             android:layout_height="wrap_content"
             android:text="Email"
             android:textSize="25sp"/>
-        <TextView
-            android:id="@+id/tv_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quyền hạn"
-            android:textSize="25sp"/>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_doimk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đổi mật khẩu"/>
     <ListView
         android:id="@+id/lv_baiviet"
         android:layout_width="wrap_content"

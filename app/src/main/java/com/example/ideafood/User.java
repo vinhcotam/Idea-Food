@@ -76,13 +76,5 @@ public class User extends AppCompatActivity {
             }
         });
     }
-    void search(){
-        imgBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            String search = edText_search.getText().toString();
 
-            }
-        });
-    }
 }
