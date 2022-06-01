@@ -1,5 +1,7 @@
 package com.example.ideafood;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 public class Posts {
     String postid, date, header, postname, username, category;
     ArrayList<String> content_post;
