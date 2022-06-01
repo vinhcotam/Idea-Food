@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,7 +53,10 @@ public class changepass extends AppCompatActivity {
         btn_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                if(pass1 != pass2 ){
+                    Toast.makeText(changepass.this,"Mật khẩu không khớp !",Toast.LENGTH_SHORT).show();
+                }
+                FirebaseDatabase.getInstance().getReference().child("Account").push().setValue(pass2);
 
             }
         });
