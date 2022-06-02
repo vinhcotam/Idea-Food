@@ -35,6 +35,12 @@ public class Infodetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Infodetail.this,changepass.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("Username",Username);
+                bundle1.putString("Password",Password);
+                bundle1.putString("Email",Email);
+                bundle1.putString("Level",Level);
+                intent1.putExtras(bundle1);
                 startActivity(intent1);
             }
         });

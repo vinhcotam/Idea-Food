@@ -25,17 +25,15 @@ public class User extends AppCompatActivity {
     ListView listView;
     ArrayList<Nguoidung> listnguoidung= null;
     AdapterUser adapterUser;
-    DatabaseReference database;
-    EditText edText_search;
-    ImageButton imgBtn;
-
+    DatabaseReference database,databaseReference;
+    ArrayList<String> listkey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         listView = findViewById(R.id.listview_user);
         ConnectDB();
-        loaduser();
+        loaduser ();
         infodetail();
     }
     void ConnectDB(){
@@ -47,9 +45,12 @@ public class User extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listnguoidung = new ArrayList<>();
+                listkey = new ArrayList<>();
                 for (DataSnapshot item : snapshot.getChildren()) {
                     Nguoidung nguoidung = item.getValue(Nguoidung.class);
                     listnguoidung.add(nguoidung);
+                    String key = item.getKey();
+                    listkey.add(key);
                 }
                 adapterUser = new AdapterUser(User.this, R.layout.lv_user, listnguoidung);
                 listView.setAdapter(adapterUser);
