@@ -44,11 +44,13 @@ public class AdapterPost extends BaseAdapter {
         TextView textView_category = view.findViewById(R.id.tv_category);
         TextView textView_postname = view.findViewById(R.id.tv_postname);
         TextView textView_ngay = view.findViewById(R.id.tv_ngay);
-        TextView textView_content = view.findViewById(R.id.tv_content);
+        TextView textView_content1 = view.findViewById(R.id.tv_content1);
+        TextView textView_content2 = view.findViewById(R.id.tv_content2);
         textView_category.setText(post.getCategory());
         textView_postname.setText(post.getPostname());
         textView_ngay.setText(post.getDate());
-        textView_content.setText(post.getContent_post());
+        textView_content1.setText(post.getContent_post().get(0));
+        textView_content2.setText(post.getContent_post().get(1));
         return view;
     }
 }
