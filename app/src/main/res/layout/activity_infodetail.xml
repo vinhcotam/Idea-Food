@@ -22,13 +22,22 @@
             android:layout_height="wrap_content"
             android:text="Email"
             android:textSize="25sp"/>
-
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
     <Button
         android:id="@+id/btn_doimk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đổi mật khẩu"/>
+        android:text="Đổi mật khẩu"
+        android:layout_marginHorizontal="30dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tạo bài viết"/>
+        </LinearLayout>
     <ListView
         android:id="@+id/lv_baiviet"
         android:layout_width="wrap_content"
