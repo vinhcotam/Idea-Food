@@ -62,7 +62,7 @@ public class Infodetail extends AppCompatActivity {
         load();
     }
     void load(){
-        Query allpost = database.child("post").child("-N3XQ-cXTWaYXtS9fvwj");
+        Query allpost = database.child("post").orderByChild("username").equalTo("leduong");
         allpost.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
