@@ -5,40 +5,47 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/homepage" />
         <item
-            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_baseline_assignment_ind_24"
+            android:title="@string/myaccount"/>
+        <item
+            android:icon="@drawable/ic_baseline_access_time_24"
+            android:title="@string/dsxemsau"/>
+        <item
+            android:id="@+id/nav_category"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Phân loại">
-            <menu>
-                    <item
-                        android:id="@+id/douong"
-                        android:title="Đồ uống"
-                        />
-                    <item
-                        android:id="@+id/thucannhanh"
-                        android:title="Ẩm thực đường phố"
-                        />
-                    <item
-                        android:id="@+id/quanan"
-                        android:title="Quán ăn"
-                        />
-                    <item
-                        android:id="@+id/dochay"
-                        android:title="Đồ chay"
-                        />
-                    <item
-                        android:id="@+id/banhkeo"
-                        android:title="Bánh kẹo"
-                        />
-                    <item
-                        android:id="@+id/dacsan"
-                        android:title="Đặc sản"
-                        />
+            android:title="Phân loại"
+            >
+            <menu >
+                    <group android:id="@+id/category">
+                            <item
+                                android:title="Ẩm thực chay"
+                                />
+                            <item
+                                android:title="Ẩm thực đường phố"
+                                />
+                            <item
+                                android:title="Ẩm thực phương tây"
+                                />
+                            <item
+                                android:title="Thức uống"
+                                />
+                            <item
+                                android:title="Món tráng miệng"
+                                />
+                            <item
+                                android:title="Kĩ thuật nấu ăn"
+                                />
+                            <item
+                                android:title="Hoa quả"
+                                />
 
+                    </group>
             </menu>
         </item>
         <item
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/myaccount"/>
+            android:id="@+id/createapost"
+            android:icon="@drawable/ic_baseline_fiber_new_24"
+            android:title="Tạo bài viết (tạm thời)" />
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_baseline_login_24"

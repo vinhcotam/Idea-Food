@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Random;
 
 public class createpost2 extends AppCompatActivity {
+    String username;
     VideoView vv_video;
     ImageView iv_img,iv_img1,iv_imgmain;
     Spinner id_spinner1;
@@ -67,6 +68,16 @@ public class createpost2 extends AppCompatActivity {
         id_spinner1.setAdapter(adapter);
         showCategory();
         setOnClick();
+    }
+    void getDatafromIntent(){
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        try {
+            username = bundle.getString("username");
+        }
+        catch (Exception e){
+            username="";
+        }
     }
     private void showCategory() {
         ref.child("tags").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -150,6 +161,7 @@ public class createpost2 extends AppCompatActivity {
                     bundle.putString("img1",img1Uri);
                     bundle.putString("video",videoUri);
                     bundle.putString("imgmain",imgMainUri);
+                    bundle.putString("username", username);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }else{

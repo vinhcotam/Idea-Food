@@ -11,7 +11,10 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -19,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -73,7 +77,6 @@ public class Homepage extends AppCompatActivity {
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
-
             }
 
             @Override
@@ -91,7 +94,6 @@ public class Homepage extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
         NavigationView navigationView = findViewById(R.id.homepage_nav_view);
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -99,11 +101,25 @@ public class Homepage extends AppCompatActivity {
                     Intent intent = Homepage.this.getIntent();
                     Homepage.this.finish();
                     startActivity(intent);
+                    return true;
                 }
                 if(item.getItemId()==R.id.nav_login){
                     Intent intent = new Intent(Homepage.this, Login.class);
                     startActivity(intent);
                     return true;
+                }
+                if(item.getGroupId()==R.id.category){
+                    GetPost(item.getTitle().toString(), 2);
+                    return  true;
+
+                }
+                if(item.getItemId()==R.id.createapost){
+                    Intent intent = new Intent(Homepage.this, createpost2.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", username);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    return  true;
                 }
                 return false;
             }
@@ -116,13 +132,7 @@ public class Homepage extends AppCompatActivity {
                 if (keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         && i == KeyEvent.KEYCODE_ENTER) {
                     String tukhoa = editText.getText().toString();
-                    int dem=0;
-                    for(int index=0;index<postList.size();index++){
-                        if(postList.get(index).getHeader().contains(tukhoa)){
-                            dem++;
-                        }
-                    }
-                    Toast.makeText(Homepage.this, "Có "+dem+" kết quả", Toast.LENGTH_LONG).show();
+                    GetPost(tukhoa, 1);
                     return true;
                 }
                 return false;
@@ -140,13 +150,16 @@ public class Homepage extends AppCompatActivity {
     }
     DrawerLayout mDrawerLayout;
     ArrayList<Posts> postList;
+    ArrayList<Posts> postListFind; //dùng khi tìm kiếm
     DatabaseReference database;
     void ConnectDB(){
         database = FirebaseDatabase.getInstance().getReference();
-        GetPost();
+        GetPost("", 0);
     }
-    void GetPost(){
+    //FIND_MODE =1: tìm theo header, 2: tìm theo category, 0: hiển thị hết
+    void GetPost(String keyvalue, int FIND_MODE){
         postList = new ArrayList<Posts>();
+        postListFind = new ArrayList<Posts>();
         Query allPost = database.child("post").orderByChild("status").equalTo(true);
         allPost.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -155,17 +168,39 @@ public class Homepage extends AppCompatActivity {
                     Posts p = item.getValue(Posts.class);
                     postList.add(p);
                 }
+                if(keyvalue.trim().equals("") || FIND_MODE==0){
+                    postListFind = postList;
+                }
+                else if(FIND_MODE ==1){
+                    for(int i=0;i<postList.size();i++){
+                        if(postList.get(i).getHeader().trim().contains(keyvalue.trim())){
+                            postListFind.add(postList.get(i));
+                        }
+                    }
+                    TextView tv = findViewById(R.id.noidungtimkiem);
+                    tv.setText("Có "+ postListFind.size() +" bài viết liên quan tới từ khóa \""+keyvalue+"\"");
+                }
+                else if(FIND_MODE ==2){
+
+                    for(int i=0;i<postList.size();i++){
+                        if(postList.get(i).getCategory().trim().contains(keyvalue.trim())){
+                            postListFind.add(postList.get(i));
+                        }
+                    }
+                    TextView tv = findViewById(R.id.noidungtimkiem);
+                    tv.setText("Có "+ postListFind.size() +" bài viết  thuộc loại \""+keyvalue+"\"");
+                }
                 ListView lv = findViewById(R.id.homepage_lv_post);
-                Adapter adapter = new ListView_Post_Adapter(postList);
+                Adapter adapter = new ListView_Post_Adapter(postListFind);
                 lv.setAdapter((ListAdapter) adapter);
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(Homepage.this, DetailPost.class);
                         Bundle bundle = new Bundle();
-                        bundle.putString("category", postList.get(position).getCategory());
+                        bundle.putString("category", postListFind.get(position).getCategory());
                         bundle.putString("username", username);
-                        bundle.putString("postid", postList.get(position).getPostid());
+                        bundle.putString("postid", postListFind.get(position).getPostid());
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }
