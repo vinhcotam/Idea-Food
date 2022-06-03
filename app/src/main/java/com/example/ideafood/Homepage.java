@@ -7,6 +7,7 @@ import androidx.appcompat.view.menu.MenuView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.TaskStackBuilder;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +50,16 @@ public class Homepage extends AppCompatActivity {
         ConnectDB();
         SetEvent();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.homepage_nav_menu, menu);
+        MenuItem item = menu.findItem(R.id.nav_signout);
+        item.setVisible(false);
+        return true;
+    }
+
     String category="";
     String username="";
     void getDatafromIntent(){
@@ -94,6 +105,20 @@ public class Homepage extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
         NavigationView navigationView = findViewById(R.id.homepage_nav_view);
+        View HeaderView = navigationView.getHeaderView(0);
+        Menu menu = navigationView.getMenu();
+        if(username.equals("")){
+            MenuItem item = menu.findItem(R.id.nav_signout);
+            TextView tv = HeaderView.findViewById(R.id.Header_Username);
+            tv.setText("Chưa đăng nhập");
+            item.setVisible(false);
+        }
+        else{
+            MenuItem item = menu.findItem(R.id.nav_login);
+            TextView tv = HeaderView.findViewById(R.id.Header_Username);
+            tv.setText(username);
+            item.setVisible(false);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

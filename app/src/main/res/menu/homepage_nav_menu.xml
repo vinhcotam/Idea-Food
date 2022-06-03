@@ -15,7 +15,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Phân loại"
             >
-            <menu >
+            <menu>
                     <group android:id="@+id/category">
                             <item
                                 android:title="Ẩm thực chay"
