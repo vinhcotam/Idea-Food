@@ -53,9 +53,10 @@
                 android:layout_height="wrap_content">
             </TextView>
             <Button
-                android:layout_width="120dp"
-                android:text=""
-                android:layout_height="120dp">
+                android:layout_width="wrap_content"
+                android:id="@+id/add_dsach"
+                android:text="Thêm vào danh sách"
+                android:layout_height="wrap_content">
 
             </Button>
         </LinearLayout>
@@ -133,7 +134,6 @@
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 >
-                <!--                android:foreground="@drawable/ic_launcher_background">-->
 
             </VideoView>
         </LinearLayout>
@@ -152,12 +152,13 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ListView
-                    android:layout_width="match_parent"
-                    android:id="@+id/lv_bvtt"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/rcv_bvtt"
                     android:layout_height="wrap_content">
 
-                </ListView>
+                </androidx.recyclerview.widget.RecyclerView>
             </ScrollView>
 
         </LinearLayout>
@@ -213,13 +214,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <Button
-                    android:layout_width="20dp"
-                    android:backgroundTint="@color/white"
-                    android:id="@+id/btn_reload"
-                    android:layout_height="20dp">
-
-                </Button>
                 <TextView
                     android:id="@+id/titlecommentpost"
                     android:layout_width="wrap_content"

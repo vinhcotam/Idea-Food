@@ -66,6 +66,7 @@ public class createpost2 extends AppCompatActivity {
         spinnerls=new ArrayList<>();
         adapter=new ArrayAdapter<String>(createpost2.this, android.R.layout.simple_spinner_dropdown_item,spinnerls);
         id_spinner1.setAdapter(adapter);
+        String username="";
         showCategory();
         setOnClick();
     }
@@ -251,7 +252,7 @@ public class createpost2 extends AppCompatActivity {
 //                    Img img=new Img( imgid,  imgUri,  "a",postid );
 //                    FirebaseDatabase.getInstance().getReference().child("images").push().setValue(img);
                     boolean status=false;
-                    Posts post= new Posts(postid,  date,  header,  title, "1",  category,  content_post,status);
+                    Posts post= new Posts(postid,  date,  header,  title, username,  category,  content_post,status);
                     FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
                     et_categorypost.setText("");
                     et_headerpost.setText("");

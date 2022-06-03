@@ -3,6 +3,7 @@ package com.example.ideafood;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.ideafood.Adapter.PostAdapter;
+import com.example.ideafood.Adapter.PostsAdapter;
 import com.example.ideafood.Adapter.Rep_Adapter;
 import com.example.ideafood.Module.Img;
 import com.example.ideafood.Module.Posts;
@@ -52,9 +54,10 @@ public class DetailPost extends AppCompatActivity {
     TextView tv_headerdp,tv_user_post,tv_date_postdp,tv_categorydp,tv_content1dp,tv_content2dp;
     ImageView iv_imgdp,iv_img1dp;
     VideoView vv_videodp;
-    ListView lv_bvtt;
     MediaController mc;
-    Button btn_reload;
+    RecyclerView rcv_bvtt;
+    Button add_dsach;
+    PostsAdapter postsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +74,12 @@ public class DetailPost extends AppCompatActivity {
     }
 
     private void loadPostTT() {
-        mListPost=new ArrayList<Posts>();
-
+        mListPost=new ArrayList<>();
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(DetailPost.this,RecyclerView.HORIZONTAL,false);
+        rcv_bvtt.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(DetailPost.this,DividerItemDecoration.HORIZONTAL);
+        rcv_bvtt.addItemDecoration(dividerItemDecoration);
         Query postTT=database.child("post").orderByChild("category").equalTo(category);
-//        Query postTT=database.child("post").orderByChild("category").equalTo(tv_categorydp.getText().toString().trim());
-
         postTT.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,24 +88,28 @@ public class DetailPost extends AppCompatActivity {
                     if(!post.getPostid().equals(postid)){
                         mListPost.add(post);
                     }
-
-
                 }
-                Adapter adapter=new PostAdapter(mListPost);
-                lv_bvtt.setAdapter((ListAdapter) adapter);
-                lv_bvtt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent=new Intent(DetailPost.this,DetailPost.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putString("postid",mListPost.get(i).getPostid());
-                        bundle.putString("category",mListPost.get(i).getCategory());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
+
+
+                postsAdapter=new PostsAdapter(DetailPost.this,mListPost);
+                rcv_bvtt.setAdapter(postsAdapter);
+
+//                Adapter adapter=new PostAdapter(mListPost);
+//                lv_bvtt.setAdapter((ListAdapter) adapter);
+//                lv_bvtt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        Intent intent=new Intent(DetailPost.this,DetailPost.class);
+//                        Bundle bundle=new Bundle();
+//                        bundle.putString("postid",mListPost.get(i).getPostid());
+//                        bundle.putString("category",mListPost.get(i).getCategory());
+//                        intent.putExtras(bundle);
+//                        startActivity(intent);
+//                    }
+//                });
                 getDatafromIntent();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -165,9 +173,9 @@ public class DetailPost extends AppCompatActivity {
         iv_imgdp=findViewById(R.id.iv_imgdp);
         iv_img1dp=findViewById(R.id.iv_img1dp);
         vv_videodp=findViewById(R.id.vv_videodp);
-        lv_bvtt=findViewById(R.id.lv_bvtt);
-        btn_reload=findViewById(R.id.btn_reload);
-//        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(DetailPost.this);
+        rcv_bvtt=findViewById(R.id.rcv_bvtt);
+        add_dsach=findViewById(R.id.add_dsach);
+
     }
 
     private void loadDetailPost() {
@@ -217,6 +225,7 @@ public class DetailPost extends AppCompatActivity {
 //        return storageRef.toString();
 
         storageRef=storage.getReference().child("img2/"+postid+"/"+postid);
+
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -252,12 +261,6 @@ public class DetailPost extends AppCompatActivity {
         button = findViewById(R.id.button_sendnewcomment);
         editText = findViewById(R.id.enternewcomment);
         //click gửi bình luận
-        btn_reload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LoadComment();
-            }
-        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
