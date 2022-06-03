@@ -54,6 +54,7 @@ public class DetailPost extends AppCompatActivity {
     VideoView vv_videodp;
     ListView lv_bvtt;
     MediaController mc;
+    Button btn_reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,8 @@ public class DetailPost extends AppCompatActivity {
         ConnectDB();
         loadDetailPost();
         loadPostTT();
-        LoadComment();
+        RealtimeComment a = new RealtimeComment();
+        a.start();
         SetEvent();
     }
 
@@ -164,6 +166,7 @@ public class DetailPost extends AppCompatActivity {
         iv_img1dp=findViewById(R.id.iv_img1dp);
         vv_videodp=findViewById(R.id.vv_videodp);
         lv_bvtt=findViewById(R.id.lv_bvtt);
+        btn_reload=findViewById(R.id.btn_reload);
 //        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(DetailPost.this);
     }
 
@@ -225,15 +228,16 @@ public class DetailPost extends AppCompatActivity {
             }
         });
 
-//        storageRef=storage.getReference().child("video/7872/7872");
-//        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Log.d("video",uri.toString());
-//                vv_videodp.setVideoURI(uri);
-//                vv_videodp.start();
-//            }
-//        });
+        storageRef=storage.getReference().child("video/"+postid+"/"+postid);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                vv_videodp.setMediaController(new MediaController(DetailPost.this));
+                Log.d("video",uri.toString());
+                vv_videodp.setVideoURI(uri);
+                vv_videodp.start();
+            }
+        });
     }
 
 
@@ -248,6 +252,12 @@ public class DetailPost extends AppCompatActivity {
         button = findViewById(R.id.button_sendnewcomment);
         editText = findViewById(R.id.enternewcomment);
         //click gửi bình luận
+        btn_reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoadComment();
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -554,6 +564,27 @@ public class DetailPost extends AppCompatActivity {
         else{
             current.setVisibility(View.VISIBLE);
             tvhide.setText("ẩn trả lời");
+        }
+    }
+    class RealtimeComment implements Runnable{
+        Thread thread;
+        @Override
+        public void run() {
+            try {
+                while (true){
+                    thread.sleep(1000);
+                    LoadComment();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+        void start(){
+            if(thread == null){
+                thread = new Thread(this);
+                thread.start();
+            }
         }
     }
 }

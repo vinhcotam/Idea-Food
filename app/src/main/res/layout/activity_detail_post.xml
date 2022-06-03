@@ -52,6 +52,12 @@
                 android:textSize="20dp"
                 android:layout_height="wrap_content">
             </TextView>
+            <Button
+                android:layout_width="120dp"
+                android:text=""
+                android:layout_height="120dp">
+
+            </Button>
         </LinearLayout>
         <LinearLayout
             android:padding="15dp"
@@ -124,7 +130,6 @@
                 android:id="@+id/vv_videodp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:visibility="invisible"
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 >
@@ -208,6 +213,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <Button
+                    android:layout_width="20dp"
+                    android:backgroundTint="@color/white"
+                    android:id="@+id/btn_reload"
+                    android:layout_height="20dp">
+
+                </Button>
                 <TextView
                     android:id="@+id/titlecommentpost"
                     android:layout_width="wrap_content"

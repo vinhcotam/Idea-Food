@@ -25,4 +25,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="homepage">Trang chủ</string>
     <string name="Logout">Đăng xuất</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="myaccount">Tài khoản của tôi</string>
 </resources>

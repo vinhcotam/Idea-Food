@@ -7,28 +7,44 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Phân loại" />
-        <group android:id="@+id/group_category"
-            android:visible="false">
-                <item
-                    android:id="@+id/douong"
-                    android:title="Đồ uống"
-                    />
-                <item
-                    android:id="@+id/thucannhanh"
-                    android:title="Thức ăn nhanh"
-                    />
-                <item
-                    android:id="@+id/quanan"
-                    android:title="Quán ăn"
-                    />
-                <item
-                    android:id="@+id/dochay"
-                    android:title="Đồ chay"
-                    />
-        </group>
+            android:title="Phân loại">
+            <menu>
+                    <item
+                        android:id="@+id/douong"
+                        android:title="Đồ uống"
+                        />
+                    <item
+                        android:id="@+id/thucannhanh"
+                        android:title="Ẩm thực đường phố"
+                        />
+                    <item
+                        android:id="@+id/quanan"
+                        android:title="Quán ăn"
+                        />
+                    <item
+                        android:id="@+id/dochay"
+                        android:title="Đồ chay"
+                        />
+                    <item
+                        android:id="@+id/banhkeo"
+                        android:title="Bánh kẹo"
+                        />
+                    <item
+                        android:id="@+id/dacsan"
+                        android:title="Đặc sản"
+                        />
+
+            </menu>
+        </item>
+        <item
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/myaccount"/>
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_baseline_login_24"
             android:title="@string/login" />
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/logout" />
 </menu>
