@@ -1,7 +1,9 @@
 package com.example.ideafood.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ideafood.DetailPost;
 import com.example.ideafood.Module.Posts;
 import com.example.ideafood.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,6 +57,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         });
         holder.tv_postnamebvtt.setText(postname);
         holder.tv_categorybvtt.setText(category);
+        holder.iv_imgbvtt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,DetailPost.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putString("postid",post.getPostid());
+                        bundle.putString("category",post.getCategory());
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
+            }
+        });
     }
 
     @Override
