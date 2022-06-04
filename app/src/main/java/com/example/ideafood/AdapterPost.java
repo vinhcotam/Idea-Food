@@ -1,11 +1,17 @@
 package com.example.ideafood;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -51,6 +57,15 @@ public class AdapterPost extends BaseAdapter {
         textView_ngay.setText(post.getDate());
         textView_content1.setText(post.getContent_post().get(0));
         textView_content2.setText(post.getContent_post().get(1));
+        ImageView imageView = view.findViewById(R.id.img_food);
+        StorageReference storageReference = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("imgMain/"+post.getPostid()+"/"+post.getPostid());
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+//                Glide.with(viewGroup.getContext()).load(uri).into(imageView);
+                imageView.setImageURI(uri);
+            }
+        });
         return view;
     }
 }
