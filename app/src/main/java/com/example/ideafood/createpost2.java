@@ -66,7 +66,7 @@ public class createpost2 extends AppCompatActivity {
         spinnerls=new ArrayList<>();
         adapter=new ArrayAdapter<String>(createpost2.this, android.R.layout.simple_spinner_dropdown_item,spinnerls);
         id_spinner1.setAdapter(adapter);
-        String username="";
+        getDatafromIntent();
         showCategory();
         setOnClick();
     }

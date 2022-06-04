@@ -261,6 +261,21 @@ public class DetailPost extends AppCompatActivity {
         button = findViewById(R.id.button_sendnewcomment);
         editText = findViewById(R.id.enternewcomment);
         //click gửi bình luận
+        add_dsach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!username.equals("")){
+                    Intent intent=new Intent(DetailPost.this,Dsachtest.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("username",username);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(DetailPost.this,"Vui lòng đăng nhập",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
