@@ -1,6 +1,10 @@
 package com.example.ideafood;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +18,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ideafood.Adapter.DsachAdapter;
+import com.example.ideafood.Adapter.DsachsAdapter;
+import com.example.ideafood.Adapter.PostsAdapter;
 import com.example.ideafood.Module.Dsach;
+import com.example.ideafood.Module.Posts;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,22 +37,58 @@ public class Dsachtest extends AppCompatActivity {
     Button btn_add_dsach;
     Random random=new Random();
     EditText et_namedsach;
+    RecyclerView rcv_ds;
     String username;
-    ArrayList<Dsach> mListDsach;
-    DsachAdapter dsachAdapter;
+    ArrayList<Dsach> mListDS;
+    DsachsAdapter dsachAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dsachtest);
         anhXa();
+        ConnectDB();
         getUsername();
         setClickAdd();
         loadDsach();
     }
+    DatabaseReference database;
+    private void ConnectDB() {
+        database = FirebaseDatabase.getInstance().getReference();
+    }
+
+//    private void loadDsach() {
+//        mListDS=new ArrayList<>();
+//    }
 
     private void loadDsach() {
-        Adapter adapter=new DsachAdapter(mListDsach);
-        lv_dsach.setAdapter((ListAdapter) adapter);
+        mListDS=new ArrayList<>();
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(Dsachtest.this,RecyclerView.VERTICAL,false);
+        rcv_ds.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(Dsachtest.this,DividerItemDecoration.HORIZONTAL);
+        rcv_ds.addItemDecoration(dividerItemDecoration);
+        Query queryDS=database.child("DSxemsau");
+        queryDS.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot item:snapshot.getChildren()){
+                    Dsach ds=item.getValue(Dsach.class);
+                    if(ds.getUsername().equals("q")){
+                        mListDS.add(ds);
+                    }
+//                    mListDS.add(ds);
+
+            }
+                dsachAdapter=new DsachsAdapter(mListDS);
+                rcv_ds.setAdapter(dsachAdapter);
+//                Adapter adapter=new DsachAdapter(mListDS);
+//                lv_dsach.setAdapter((ListAdapter) adapter);
+            };
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        getUsername();
     }
 
     private void getUsername() {
@@ -50,6 +98,7 @@ public class Dsachtest extends AppCompatActivity {
     }
 
     private void setClickAdd() {
+
         btn_add_dsach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,11 +116,13 @@ public class Dsachtest extends AppCompatActivity {
 
             }
         });
+        loadDsach();
     }
 
     private void anhXa() {
         btn_add_dsach=findViewById(R.id.btn_add_dsach);
-        lv_dsach=findViewById(R.id.lv_dsach);
+//        lv_dsach=findViewById(R.id.lv_dsach);
         et_namedsach=findViewById(R.id.et_namedsach);
+        rcv_ds=findViewById(R.id.rcv_ds);
     }
 }

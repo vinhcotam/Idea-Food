@@ -47,7 +47,7 @@ public class DsachAdapter extends BaseAdapter {
         tv_name_dsach.setText(dsach.getDsachname());
         tv_date_dsach.setText(dsach.getDate());
         tv_user_dsach.setText(dsach.getUsername());
-        tv_sl_dsach.setText(mListDsach.size());
+//        tv_sl_dsach.setText(mListDsach.size());
         return viewList;
     }
 }
