@@ -57,5 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/homepage_nav_menu"/>
+        app:menu="@menu/homepage_nav_menu"
+        app:headerLayout="@layout/homepage_nav_header"/>
 </androidx.drawerlayout.widget.DrawerLayout>
