@@ -3,18 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1095" />
+        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1095" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_box_add_comment.xml" value="0.33" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_box_chat.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_comment.xml" value="0.25" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_detail_post.xml" value="0.1" />
+        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_homepage.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_module_chat.xml" value="0.25" />
+        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/activity_welcome.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/chat_screen.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/fragment_chat.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/item_boxchat.xml" value="0.33" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/item_boxrep.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/layout/rep_layout.xml" value="0.20260416666666667" />
-        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/menu/homepage_nav_menu.xml" value="0.15052083333333333" />
+        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/menu/homepage_nav_menu.xml" value="0.22" />
+        <entry key="..\:/Users/Duong/Documents/GitHub/Idea-Food/app/src/main/res/menu/menu_layout.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/duong/Documents/GitHub/Idea-Food/app/src/main/res/drawable/border.xml" value="0.2035" />
         <entry key="..\:/Users/duong/Documents/GitHub/Idea-Food/app/src/main/res/drawable/custom_edittext.xml" value="0.114" />
         <entry key="..\:/Users/duong/Documents/GitHub/Idea-Food/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.114" />
@@ -54,7 +59,6 @@
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/homepage_nav_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/item_boxrep.xml" value="0.213768115942029" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/item_postlist.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/lv_dsach.xml" value="0.22826086956521738" />
       </map>
     </option>
   </component>

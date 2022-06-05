@@ -1,6 +1,7 @@
 package com.example.ideafood.startLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -20,10 +21,9 @@ import com.example.ideafood.R;
 public class Welcome extends AppCompatActivity {
 
 
-    private TextView skip;
+    private TextView skip, back, next;
     private ViewPager viewPager;
-    private RelativeLayout layoutBottom;
-    private LinearLayout next;
+    private ConstraintLayout layoutBottom;
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -31,9 +31,7 @@ public class Welcome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
         initUI();
-
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -72,8 +70,8 @@ public class Welcome extends AppCompatActivity {
         skip = findViewById(R.id.skip);
         viewPager = findViewById(R.id.view);
         layoutBottom = findViewById(R.id.layout_bottom);
-        next = findViewById(R.id.layout_next);
-
+        next = findViewById(R.id.welcome_next_content);
+        back = findViewById(R.id.welcome_back_content);
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +84,14 @@ public class Welcome extends AppCompatActivity {
             public void onClick(View view) {
                 if (viewPager.getCurrentItem()<2){
                     viewPager.setCurrentItem(viewPager.getCurrentItem() +1);
+                }
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (viewPager.getCurrentItem()>0){
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() -1);
                 }
             }
         });

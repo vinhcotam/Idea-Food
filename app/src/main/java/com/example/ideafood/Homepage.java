@@ -1,35 +1,32 @@
 package com.example.ideafood;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.TaskStackBuilder;
-import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.ideafood.Adapter.ListView_Post_Adapter;
 import com.example.ideafood.Module.Posts;
-import com.google.android.material.navigation.NavigationBarItemView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +43,8 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF3F51B5")));
         getDatafromIntent();
         ConnectDB();
         SetEvent();
@@ -54,9 +53,32 @@ public class Homepage extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.homepage_nav_menu, menu);
-        MenuItem item = menu.findItem(R.id.nav_signout);
-        item.setVisible(false);
+        menuInflater.inflate(R.menu.menu_layout, menu);
+        menu.findItem(R.id.searchbar_navigation).setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                return true;
+            }
+        });
+        SearchView searchView = (SearchView) menu.findItem(R.id.searchbar_navigation).getActionView();
+        searchView.setQueryHint("Nhập tên bài viết cần tìm....");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                GetPost(query, 1);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -107,11 +129,16 @@ public class Homepage extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.homepage_nav_view);
         View HeaderView = navigationView.getHeaderView(0);
         Menu menu = navigationView.getMenu();
+        //hạn chế tính năng của người dùng khách
         if(username.equals("")){
             MenuItem item = menu.findItem(R.id.nav_signout);
+            item.setVisible(false);
+            item = menu.findItem(R.id.nav_myaccount);
+            item.setVisible(false);
+            item = menu.findItem(R.id.nav_dsxemsau);
+            item.setVisible(false);
             TextView tv = HeaderView.findViewById(R.id.Header_Username);
             tv.setText("Chưa đăng nhập");
-            item.setVisible(false);
         }
         else{
             MenuItem item = menu.findItem(R.id.nav_login);
@@ -135,6 +162,7 @@ public class Homepage extends AppCompatActivity {
                 }
                 if(item.getGroupId()==R.id.category){
                     GetPost(item.getTitle().toString(), 2);
+                    mDrawerLayout.closeDrawers();
                     return  true;
 
                 }
@@ -145,20 +173,6 @@ public class Homepage extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     return  true;
-                }
-                return false;
-            }
-        });
-
-        EditText editText = findViewById(R.id.ET_SearchPost);
-        editText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        && i == KeyEvent.KEYCODE_ENTER) {
-                    String tukhoa = editText.getText().toString();
-                    GetPost(tukhoa, 1);
-                    return true;
                 }
                 return false;
             }

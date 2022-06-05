@@ -10,7 +10,7 @@
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Skip"
+        android:text="Bỏ qua"
         android:textSize="20dp"
         android:textColor="@color/black"
         android:padding="16dp"
@@ -23,33 +23,36 @@
         android:layout_above="@+id/layout_bottom"
         android:layout_below="@+id/skip" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:padding="10dp">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/layout_next"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/welcome_back_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal">
+            android:paddingVertical="15dp"
+            android:textAlignment="center"
+            android:text="Trước"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="Next"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+        <TextView
+            android:id="@+id/welcome_next_content"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
+            android:text="Tiếp theo"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/next" />
-        </LinearLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

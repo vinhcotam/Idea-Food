@@ -5,9 +5,15 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/homepage" />
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/login" />
+        <item
+            android:id="@+id/nav_myaccount"
             android:icon="@drawable/ic_baseline_assignment_ind_24"
             android:title="@string/myaccount"/>
         <item
+            android:id="@+id/nav_dsxemsau"
             android:icon="@drawable/ic_baseline_access_time_24"
             android:title="@string/dsxemsau"/>
         <item
@@ -46,10 +52,6 @@
             android:id="@+id/createapost"
             android:icon="@drawable/ic_baseline_fiber_new_24"
             android:title="Tạo bài viết (tạm thời)" />
-        <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_baseline_login_24"
-            android:title="@string/login" />
         <item
             android:id="@+id/nav_signout"
             android:icon="@drawable/ic_baseline_login_24"
