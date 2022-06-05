@@ -174,6 +174,13 @@ public class Homepage extends AppCompatActivity {
                     startActivity(intent);
                     return  true;
                 }
+                if(item.getItemId()==R.id.nav_dsxemsau){
+                    Intent intent = new Intent(Homepage.this, Dsachtest.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", username);
+                    intent.putExtras(bundle);
+                    return true;
+                }
                 return false;
             }
         });
