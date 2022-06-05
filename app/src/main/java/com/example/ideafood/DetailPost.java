@@ -268,6 +268,7 @@ public class DetailPost extends AppCompatActivity {
                     Intent intent=new Intent(DetailPost.this,Dsachtest.class);
                     Bundle bundle=new Bundle();
                     bundle.putString("username",username);
+                    bundle.putString("postid",postid);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }else{
