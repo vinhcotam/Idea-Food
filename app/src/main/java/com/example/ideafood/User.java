@@ -25,8 +25,8 @@ public class User extends AppCompatActivity {
     ListView listView;
     ArrayList<Nguoidung> listnguoidung= null;
     AdapterUser adapterUser;
-    DatabaseReference database,databaseReference;
-    ArrayList<String> listkey;
+    DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +45,9 @@ public class User extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listnguoidung = new ArrayList<>();
-                listkey = new ArrayList<>();
                 for (DataSnapshot item : snapshot.getChildren()) {
                     Nguoidung nguoidung = item.getValue(Nguoidung.class);
                     listnguoidung.add(nguoidung);
-                    String key = item.getKey();
-                    listkey.add(key);
                 }
                 adapterUser = new AdapterUser(User.this, R.layout.lv_user, listnguoidung);
                 listView.setAdapter(adapterUser);
@@ -66,10 +63,10 @@ public class User extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(User.this,Infodetail.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("Username",listnguoidung.get(i).username);
-                bundle.putString("Password",listnguoidung.get(i).password);
-                bundle.putString("Email",listnguoidung.get(i).email);
-                bundle.putString("Level",listnguoidung.get(i).level);
+                bundle.putString("username",listnguoidung.get(i).username);
+                bundle.putString("password",listnguoidung.get(i).password);
+                bundle.putString("email",listnguoidung.get(i).email);
+                bundle.putString("level",listnguoidung.get(i).level);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

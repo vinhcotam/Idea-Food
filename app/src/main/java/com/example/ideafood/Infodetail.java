@@ -40,30 +40,27 @@ public class Infodetail extends AppCompatActivity {
 
         Intent intent =getIntent();
         Bundle bundle = intent.getExtras();
-        String Username = bundle.getString("Username");
-        String Password = bundle.getString("Password");
-        String Email = bundle.getString("Email");
-        String Level = bundle.getString("Level");
-        tvname.setText(Username);
-        tvemail.setText(Email);
+        String username = bundle.getString("username");
+        String password = bundle.getString("password");
+        String email = bundle.getString("email");
+        String level = bundle.getString("level");
+        tvname.setText(username);
+        tvemail.setText(email);
         btn_doipass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Infodetail.this,changepass.class);
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("Username",Username);
-                bundle1.putString("Password",Password);
-                bundle1.putString("Email",Email);
-                bundle1.putString("Level",Level);
+                bundle1.putString("username",username);
+                bundle1.putString("password",password);
+                bundle1.putString("email",email);
+                bundle1.putString("level",level);
                 intent1.putExtras(bundle1);
                 startActivity(intent1);
             }
         });
-        load();
-    }
-    void load(){
-        Query allpost = database.child("post").orderByChild("username").equalTo("leduong");
-        allpost.addValueEventListener(new ValueEventListener() {
+        Query mypost = database.child("post").orderByChild("username").equalTo(username);
+        mypost.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listposts = new ArrayList<>();

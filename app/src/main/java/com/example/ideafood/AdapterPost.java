@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -62,8 +63,8 @@ public class AdapterPost extends BaseAdapter {
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-//                Glide.with(viewGroup.getContext()).load(uri).into(imageView);
-                imageView.setImageURI(uri);
+               Glide.with(viewGroup.getContext()).load(uri).into(imageView);
+//               imageView.setImageURI(uri);
             }
         });
         return view;
