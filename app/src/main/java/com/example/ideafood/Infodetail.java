@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Infodetail extends AppCompatActivity {
     TextView tvname,tvemail;
     DatabaseReference database;
-    Button btn_doipass, bt_xoa;
+    Button btn_doipass;
     ListView listView;
     ArrayList<Posts> listposts = null;
     AdapterPost adapterPost;
@@ -33,7 +33,7 @@ public class Infodetail extends AppCompatActivity {
         tvname = findViewById(R.id.tv_name);
         tvemail = findViewById(R.id.tv_email);
         btn_doipass = findViewById(R.id.btn_doimk);
-        bt_xoa = findViewById(R.id.btn_xoa);
+
         listView = findViewById(R.id.lv_baiviet);
 
         database = FirebaseDatabase.getInstance().getReference();

@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:paddingVertical="20dp">
+
+    <ImageView
+        android:id="@+id/img_food"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_noimg"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/tv_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="category"
-        android:textSize="25sp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+
+        android:paddingHorizontal="8dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tv_postname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_food" />
+
     <TextView
         android:id="@+id/tv_postname"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Postname"
-        android:textSize="25sp"/>
-    <TextView
-        android:id="@+id/tv_ngay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ngay"
-        android:textSize="20sp"/>
-    <ImageView
-        android:id="@+id/img_food"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_marginLeft="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/layoutabc" />
 
-    <TextView
-        android:id="@+id/tv_content1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutabc"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="content"
-        android:textSize="25sp"/>
-    <TextView
-        android:id="@+id/tv_content2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="content"
-        android:textSize="25sp"/>
-    <Button
-        android:id="@+id/btn_xoa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Xóa"/>
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/post_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
