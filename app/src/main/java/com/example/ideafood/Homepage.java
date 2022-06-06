@@ -182,6 +182,14 @@ public class Homepage extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
+                if(item.getItemId()==R.id.nav_myaccount){
+                    Intent intent = new Intent(Homepage.this, MyDS.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", username);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    return true;
+                }
                 if(item.getItemId()==R.id.nav_signout){
                     Homepage.this.finish();
                 }

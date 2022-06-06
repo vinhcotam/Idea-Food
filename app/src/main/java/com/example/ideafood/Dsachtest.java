@@ -88,27 +88,23 @@ public class Dsachtest extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Query test=database.child("DSxemsau");
+                String current_dsID = mListDS.get(i).getDsachid();
                 test.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for(DataSnapshot item:snapshot.getChildren()){
-                            Dsach ds=item.getValue(Dsach.class);
-                            if(ds.getDsachid().equals(mListDS.get(i).getDsachid())){
-                                key=item.getKey();
-                                listpost.add(postid);
-                                database.child("DSxemsau").child("postid").push().setValue(listpost);
-                                Toast.makeText(Dsachtest.this,"Thêm thành công",Toast.LENGTH_LONG).show();
-//                                for(int i=0;i<ds.getPostid().size();i++){
-//                                    if(!postid.equals(ds.getPostid().get(i))){
-//                                        database.child("DSxemsau").child("postid/"+postid_test).push().setValue(postid);
-////                                        database.child("DSxemsau").child("postid").push().setValue(postid);
-//                                    }else{
-//                                        Toast.makeText(Dsachtest.this,"Bài viết đã tồn tại trong danh sách",Toast.LENGTH_LONG).show();
-//                                    }
-//                                }
-//                                Log.d("key",key);
-
-
+                            Dsach ds = item.getValue(Dsach.class);
+                            if(ds.getDsachid().equals(current_dsID)){
+                                key = item.getKey();
+                                if(ds.getPostid()==null){
+                                    ArrayList<String> newPostList = new ArrayList<>();
+                                    newPostList.add(postid);
+                                    ds.setPostid(newPostList);
+                                }
+                                else{
+                                    ds.getPostid().add(postid);
+                                }
+                                FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
                             }
                         }
                     }
@@ -141,7 +137,7 @@ public class Dsachtest extends AppCompatActivity {
                 dsachid=String.valueOf(random.nextInt(10000));
                 String date= String.valueOf(java.time.LocalDate.now());
                 if(!dsach_name.equals("")){
-                    Dsach dsach=new Dsach(dsachid,dsach_name,username,date,null);
+                    Dsach dsach=new Dsach(dsachid,dsach_name,username,date, new ArrayList<String>());
                     FirebaseDatabase.getInstance().getReference().child("DSxemsau").push().setValue(dsach);
                     et_namedsach.setText("");
                     Toast.makeText(Dsachtest.this,"Tạo danh sách và thêm thành công",Toast.LENGTH_LONG).show();

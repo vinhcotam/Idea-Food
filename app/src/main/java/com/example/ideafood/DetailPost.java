@@ -237,16 +237,16 @@ public class DetailPost extends AppCompatActivity {
             }
         });
 
-        storageRef=storage.getReference().child("video/"+postid+"/"+postid);
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                vv_videodp.setMediaController(new MediaController(DetailPost.this));
-                Log.d("video",uri.toString());
-                vv_videodp.setVideoURI(uri);
-//                vv_videodp.start();
-            }
-        });
+//        storageRef=storage.getReference().child("video/"+postid+"/"+postid);
+//        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                vv_videodp.setMediaController(new MediaController(DetailPost.this));
+//                Log.d("video",uri.toString());
+//                vv_videodp.setVideoURI(uri);
+////                vv_videodp.start();
+//            }
+//        });
     }
 
 
