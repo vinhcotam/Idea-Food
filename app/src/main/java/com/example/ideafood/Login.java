@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,12 +28,15 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ConnectDB();
+        getDatafromIntent();
         SetEvent();
     }
     ArrayList<Account> accountList;
     DatabaseReference database;
+    SQLiteDatabase db;
     void ConnectDB(){
         database = FirebaseDatabase.getInstance().getReference();
+        db = openOrCreateDatabase("FirstUse.db", MODE_PRIVATE, null);
     }
     void SetEvent(){
         Button button = findViewById(R.id.BT_signup);
@@ -60,6 +64,8 @@ public class Login extends AppCompatActivity {
                             Account a = item.getValue(Account.class);
                             if(a.getPassword().equals(password)){
                                 Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                String sql = "Update Account set username='"+username+"', password='"+password+"' where keylocal='localaccount'";
+                                db.execSQL(sql);
                                 checkOK=true;
                                 Intent intent = new Intent(Login.this, Homepage.class);
                                 Bundle bundle = new Bundle();
@@ -80,5 +86,20 @@ public class Login extends AppCompatActivity {
                 });
             }
         });
+    }
+    void getDatafromIntent(){
+        Intent intent = getIntent();
+        try {
+            Bundle bundle = intent.getExtras();
+            String username = bundle.getString("username");
+            String password = bundle.getString("password");
+            EditText et = findViewById(R.id.ET_username);
+            et.setText(username);
+            et = findViewById(R.id.ET_password);
+            et.setText(password);
+        }
+        catch(Exception e){
+            return;
+        }
     }
 }

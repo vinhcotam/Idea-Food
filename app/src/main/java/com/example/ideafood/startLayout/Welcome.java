@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.ideafood.Adapter.ViewPagerAdapter;
 import com.example.ideafood.Homepage;
+import com.example.ideafood.Login;
 import com.example.ideafood.R;
 
 
@@ -23,7 +26,7 @@ public class Welcome extends AppCompatActivity {
 
     private TextView skip, back, next;
     private ViewPager viewPager;
-    private ConstraintLayout layoutBottom;
+    private ConstraintLayout layoutBottom;String username="", password="";
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -31,6 +34,16 @@ public class Welcome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        if(!FirstTime()){
+            LocalAccount();
+            Intent intent =new Intent(Welcome.this, Login.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            bundle.putString("password", password);
+            intent.putExtras(bundle);
+            this.finish();
+            startActivity(intent);
+        }
         initUI();
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
@@ -50,6 +63,7 @@ public class Welcome extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(Welcome.this, Homepage.class);
+                            Welcome.this.finish();
                             startActivity(intent);
                         }
                     });
@@ -95,5 +109,33 @@ public class Welcome extends AppCompatActivity {
                 }
             }
         });
+    }
+    Boolean FirstTime(){
+        SQLiteDatabase db = openOrCreateDatabase("FirstUse.db", MODE_PRIVATE, null);
+        try {
+            db.execSQL("create table if not exists FirstUse(first int unique)");
+            db.execSQL("insert into FirstUse values(1)");
+            db.execSQL("create table if not exists Account(keylocal text unique ,username text, password text)");
+            db.execSQL("insert into Account values('localaccount', '', '')");
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    Boolean LocalAccount(){
+        SQLiteDatabase db = openOrCreateDatabase("FirstUse.db", MODE_PRIVATE, null);
+        try {
+            String sql = "select * from Account where keylocal ='localaccount'";
+            Cursor cursor = db.rawQuery(sql, null);
+            if(cursor.moveToFirst()){
+                username = cursor.getString(1);
+                password = cursor.getString(2);
+            }
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 }
