@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IdeaFood">
         <activity
+            android:name=".MyDSDetail"
+            android:exported="false" />
+        <activity
+            android:name=".MyDS"
+            android:exported="false" />
+        <activity
             android:name=".Dsachtest"
             android:exported="false" />
         <activity

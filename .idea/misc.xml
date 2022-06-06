@@ -53,6 +53,7 @@
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/activity_detail_post.xml" value="0.213768115942029" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/activity_dsachtest.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/activity_my_ds.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/activity_screen_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/activity_testdanhsach.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/bvtt_layout.xml" value="0.11302083333333333" />
@@ -60,6 +61,8 @@
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/homepage_nav_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/item_boxrep.xml" value="0.213768115942029" />
         <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/item_postlist.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/lv_dsach.xml" value="0.264" />
+        <entry key="..\:/Users/vinh/Desktop/Idea-Food/app/src/main/res/layout/lv_myds.xml" value="0.24139492753623187" />
       </map>
     </option>
   </component>

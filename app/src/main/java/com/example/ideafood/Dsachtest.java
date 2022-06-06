@@ -65,7 +65,7 @@ public class Dsachtest extends AppCompatActivity {
 
     private void loadDsach() {
         mListDS=new ArrayList<>();
-
+        listpost=new ArrayList<>();
         Query queryDS=database.child("DSxemsau");
         queryDS.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,15 +88,16 @@ public class Dsachtest extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Query test=database.child("DSxemsau");
-                String postid_test= String.valueOf(random.nextInt(100));
                 test.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for(DataSnapshot item:snapshot.getChildren()){
                             Dsach ds=item.getValue(Dsach.class);
-                            if(ds.getDsachid().equals("6103")){
+                            if(ds.getDsachid().equals(mListDS.get(i).getDsachid())){
                                 key=item.getKey();
-                                database.child("DSxemsau/"+key).child("postid").push().setValue(postid);
+                                listpost.add(postid);
+                                database.child("DSxemsau").child("postid").push().setValue(listpost);
+                                Toast.makeText(Dsachtest.this,"Thêm thành công",Toast.LENGTH_LONG).show();
 //                                for(int i=0;i<ds.getPostid().size();i++){
 //                                    if(!postid.equals(ds.getPostid().get(i))){
 //                                        database.child("DSxemsau").child("postid/"+postid_test).push().setValue(postid);

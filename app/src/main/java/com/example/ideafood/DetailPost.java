@@ -244,7 +244,7 @@ public class DetailPost extends AppCompatActivity {
                 vv_videodp.setMediaController(new MediaController(DetailPost.this));
                 Log.d("video",uri.toString());
                 vv_videodp.setVideoURI(uri);
-                vv_videodp.start();
+//                vv_videodp.start();
             }
         });
     }
