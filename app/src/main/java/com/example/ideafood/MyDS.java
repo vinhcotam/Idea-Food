@@ -1,8 +1,10 @@
 package com.example.ideafood;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ideafood.Adapter.DsachAdapter;
+import com.example.ideafood.Adapter.MyDSAdapter;
 import com.example.ideafood.Module.Dsach;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +32,7 @@ public class MyDS extends AppCompatActivity {
     Random random = new Random();
     String username;
     ArrayList<Dsach> mListMyDS;
-
+    MyDSAdapter myDSAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,7 @@ public class MyDS extends AppCompatActivity {
         getUsername();
         loadMyDS();
     }
+
 
     private void loadMyDS() {
         mListMyDS = new ArrayList<>();
@@ -62,6 +66,47 @@ public class MyDS extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        lv_myds.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int positon, long l) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(MyDS.this);
+                builder.setTitle("Xác nhận xóa danh sách ");
+                builder.setMessage("Xóa");
+                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Query xoa=database.child("DSxemsau");
+                        xoa.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot item:snapshot.getChildren()){
+                                    Dsach ds=item.getValue(Dsach.class);
+                                    if(ds.getDsachid().equals(mListMyDS.get(positon).getDsachid())){
+                                        item.getRef().removeValue();
+                                    }
+                                }
+                                loadMyDS();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        myDSAdapter.notifyDataSetChanged();
+
+                    }
+                });
+                builder.show();
+
+                return true;
             }
         });
     }

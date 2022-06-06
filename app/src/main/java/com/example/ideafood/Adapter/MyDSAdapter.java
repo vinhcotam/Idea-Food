@@ -47,7 +47,7 @@ public class MyDSAdapter extends BaseAdapter {
         tv_name_mydsach.setText(dsach.getDsachname());
         tv_date_mydsach.setText(dsach.getDate());
         tv_user_mydsach.setText(dsach.getUsername());
-//        tv_sl_dsach.setText(String.valueOf(dsach.getPostid().size()));
+        tv_sl_mydsach.setText(String.valueOf(dsach.getPostid().size()));
 //        tv_sl_dsach.setText(String.valueOf(mListDsach.size()));
 //        tv_sl_dsach.setText(dsach.getDsachid());
         return viewList;
