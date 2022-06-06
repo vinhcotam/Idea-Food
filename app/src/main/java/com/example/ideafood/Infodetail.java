@@ -78,6 +78,13 @@ public class Infodetail extends AppCompatActivity {
 
             }
         });
+        listView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return false; 
+            }
+        });
     }
+
 
 }
