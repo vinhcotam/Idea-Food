@@ -1,15 +1,10 @@
 package com.example.ideafood;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -20,11 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ideafood.Adapter.DsachAdapter;
-import com.example.ideafood.Adapter.DsachsAdapter;
-import com.example.ideafood.Adapter.PostsAdapter;
 import com.example.ideafood.Module.Dsach;
-import com.example.ideafood.Module.Posts;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,8 +24,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Dsachtest extends AppCompatActivity {
@@ -89,6 +78,7 @@ public class Dsachtest extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Query test=database.child("DSxemsau");
                 String current_dsID = mListDS.get(i).getDsachid();
+                ArrayList<String> current_listPostID=mListDS.get(i).getPostid();
                 test.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -100,12 +90,22 @@ public class Dsachtest extends AppCompatActivity {
                                     ArrayList<String> newPostList = new ArrayList<>();
                                     newPostList.add(postid);
                                     ds.setPostid(newPostList);
+
                                 }
                                 else{
-                                    ds.getPostid().add(postid);
+                                    for(int i=0;i<current_listPostID.size();i++){
+                                        if(current_listPostID.get(i).equals(postid)){
+                                            Toast.makeText(Dsachtest.this,"Đã tồn tại",Toast.LENGTH_LONG).show();
+                                        }else{
+                                            ds.getPostid().add(postid);
+                                        }
+                                    }
+//                                    ds.getPostid().add(postid);
                                 }
+//                                FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
                                 FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
                             }
+
                         }
                     }
 
@@ -140,7 +140,7 @@ public class Dsachtest extends AppCompatActivity {
                     Dsach dsach=new Dsach(dsachid,dsach_name,username,date, new ArrayList<String>());
                     FirebaseDatabase.getInstance().getReference().child("DSxemsau").push().setValue(dsach);
                     et_namedsach.setText("");
-                    Toast.makeText(Dsachtest.this,"Tạo danh sách và thêm thành công",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Dsachtest.this,"Tạo danh sác thành công",Toast.LENGTH_LONG).show();
                 }
 
                 loadDsach();

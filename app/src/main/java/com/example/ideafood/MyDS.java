@@ -105,8 +105,17 @@ public class MyDS extends AppCompatActivity {
                     }
                 });
                 builder.show();
-
                 return true;
+            }
+        });
+        lv_myds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(MyDS.this, MyDSDetail.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("dsachid",mListMyDS.get(i).getDsachid());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
