@@ -114,6 +114,7 @@ public class MyDS extends AppCompatActivity {
                 Intent intent=new Intent(MyDS.this, MyDSDetail.class);
                 Bundle bundle=new Bundle();
                 bundle.putString("dsachid",mListMyDS.get(i).getDsachid());
+                bundle.putString("username",mListMyDS.get(i).getUsername());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
