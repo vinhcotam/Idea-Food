@@ -96,6 +96,7 @@ public class Dsachtest extends AppCompatActivity {
                                     for(int i=0;i<current_listPostID.size();i++){
                                         if(current_listPostID.get(i).equals(postid)){
                                             Toast.makeText(Dsachtest.this,"Đã tồn tại",Toast.LENGTH_LONG).show();
+                                            return;
                                         }else{
                                             ds.getPostid().add(postid);
                                         }
