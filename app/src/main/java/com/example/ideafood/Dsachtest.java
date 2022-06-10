@@ -104,6 +104,7 @@ public class Dsachtest extends AppCompatActivity {
 //                                    ds.getPostid().add(postid);
                                 }
 //                                FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
+                                Toast.makeText(Dsachtest.this,"Thêm thành công",Toast.LENGTH_LONG).show();
                                 FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
                             }
 
