@@ -43,36 +43,12 @@ public class Dsachtest extends AppCompatActivity {
         ConnectDB();
         getUsername();
         loadDsach();
-        setClickAdd();
+        setClickAddDS();
+        setClickAddPost();
 
     }
-    DatabaseReference database;
-    private void ConnectDB() {
-        database = FirebaseDatabase.getInstance().getReference();
-    }
 
-
-    private void loadDsach() {
-        mListDS=new ArrayList<>();
-        listpost=new ArrayList<>();
-        Query queryDS=database.child("DSxemsau");
-        queryDS.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot item:snapshot.getChildren()){
-                    Dsach ds=item.getValue(Dsach.class);
-                    if(ds.getUsername().equals(username)){
-                        mListDS.add(ds);
-                    }
-            }
-                Adapter adapter=new DsachAdapter(mListDS);
-                lv_dsach.setAdapter((ListAdapter) adapter);
-            };
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void setClickAddPost() {
         lv_dsach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -101,11 +77,13 @@ public class Dsachtest extends AppCompatActivity {
                                             ds.getPostid().add(postid);
                                         }
                                     }
+
 //                                    ds.getPostid().add(postid);
                                 }
 //                                FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
                                 Toast.makeText(Dsachtest.this,"Thêm thành công",Toast.LENGTH_LONG).show();
                                 FirebaseDatabase.getInstance().getReference("DSxemsau").child(key).setValue(ds);
+                                loadDsach();
                             }
 
                         }
@@ -119,6 +97,35 @@ public class Dsachtest extends AppCompatActivity {
 
             }
         });
+    }
+
+    DatabaseReference database;
+    private void ConnectDB() {
+        database = FirebaseDatabase.getInstance().getReference();
+    }
+
+
+    private void loadDsach() {
+        mListDS=new ArrayList<>();
+        listpost=new ArrayList<>();
+        Query queryDS=database.child("DSxemsau");
+        queryDS.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot item:snapshot.getChildren()){
+                    Dsach ds=item.getValue(Dsach.class);
+                    if(ds.getUsername().equals(username)){
+                        mListDS.add(ds);
+                    }
+            }
+                Adapter adapter=new DsachAdapter(mListDS);
+                lv_dsach.setAdapter((ListAdapter) adapter);
+            };
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -129,7 +136,7 @@ public class Dsachtest extends AppCompatActivity {
         postid=bundle.getString("postid");
     }
     String dsachid;
-    private void setClickAdd() {
+    private void setClickAddDS() {
         listpost=new ArrayList<>();
         btn_add_dsach.setOnClickListener(new View.OnClickListener() {
             @Override
