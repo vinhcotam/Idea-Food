@@ -62,6 +62,13 @@
         </TableRow>
 
     </TableLayout>
+    <CheckBox
+        android:layout_marginLeft="10dp"
+        android:id="@+id/saveaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nhomatkhau"
+        android:textColor="#EF5350"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,6 +92,23 @@
             android:backgroundTint="#EF5350"
             android:text="@string/signup"
             android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không muốn đăng nhập,"/>
+        <TextView
+            android:id="@+id/notaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" đăng nhập với tư cách khách"
+            android:textColor="#EF5350"/>
     </LinearLayout>
 
 

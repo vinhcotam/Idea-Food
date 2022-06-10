@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ideafood.classs.Account;
@@ -53,8 +55,16 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 EditText et = findViewById(R.id.ET_username);
                 String username = et.getText().toString();
+                if(username.trim().equals("")){
+                    Toast.makeText(Login.this, "Bạn chưa nhập tài khoản", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 et = findViewById(R.id.ET_password);
                 String password = et.getText().toString();
+                if(password.trim().equals("")){
+                    Toast.makeText(Login.this, "Bạn chưa nhập mật khẩu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Query checkAccount = database.child("Account").orderByChild("username").equalTo(username);
                 checkAccount.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -64,8 +74,15 @@ public class Login extends AppCompatActivity {
                             Account a = item.getValue(Account.class);
                             if(a.getPassword().equals(password)){
                                 Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                String sql = "Update Account set username='"+username+"', password='"+password+"' where keylocal='localaccount'";
-                                db.execSQL(sql);
+                                CheckBox cb_saveaccount = findViewById(R.id.saveaccount);
+                                if(cb_saveaccount.isChecked()){
+                                    String sql = "Update Account set username='"+username+"', password='"+password+"' where keylocal='localaccount'";
+                                    db.execSQL(sql);
+                                }
+                                else{
+                                    String sql = "Update Account set username='', password='' where keylocal='localaccount'";
+                                    db.execSQL(sql);
+                                }
                                 checkOK=true;
                                 Intent intent = new Intent(Login.this, Homepage.class);
                                 Bundle bundle = new Bundle();
@@ -84,6 +101,19 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "??", Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+        });
+        TextView tv = findViewById(R.id.notaccount);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sql = "Update Account set username='', password='' where keylocal='localaccount'";
+                db.execSQL(sql);
+                Intent intent = new Intent(Login.this, Homepage.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username", "");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

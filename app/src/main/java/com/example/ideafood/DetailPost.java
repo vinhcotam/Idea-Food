@@ -272,7 +272,30 @@ public class DetailPost extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(DetailPost.this,"Vui lòng đăng nhập",Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(DetailPost.this);
+                        builder1.setMessage("Bạn cần đăng nhập để sử dụng chức năng này");
+                        builder1.setCancelable(true);
+
+                        builder1.setPositiveButton(
+                                "Đăng nhập",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        Intent intent = new Intent(DetailPost.this, Login.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                        builder1.setNegativeButton(
+                                "Thôi",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
                 }
 
             }
@@ -357,6 +380,10 @@ public class DetailPost extends AppCompatActivity {
     //gửi bình luận(fatherid=-1) và trả lời(fatherid!=-1)
     void SendComment(){
         content = editText.getText().toString();
+        if(content.trim().equals("")){
+            Toast.makeText(this, "Bạn chưa nhập nội dung", Toast.LENGTH_LONG).show();
+            return;
+        }
         date = java.time.LocalDate.now().toString();
         commentid = Integer.toString((new Random()).nextInt());
         Comment cmt = new Comment(commentid, content, date, fatherid, postid, username);

@@ -28,4 +28,5 @@
     <string name="logout">Đăng xuất</string>
     <string name="myaccount">Tài khoản của tôi</string>
     <string name="dsxemsau">Danh sách xem sau</string>
+    <string name="nhomatkhau">Nhớ tài khoản</string>
 </resources>
