@@ -1,11 +1,14 @@
 package com.example.ideafood;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +29,7 @@ public class Infodetail extends AppCompatActivity {
     ListView listView;
     ArrayList<Posts> listposts = null;
     AdapterPost adapterPost;
+    String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +82,18 @@ public class Infodetail extends AppCompatActivity {
 
             }
         });
-        listView.setOnLongClickListener(new View.OnLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                return false; 
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Intent intent1 = new Intent(Infodetail.this,Postdetail.class);
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("postid",listposts.get(i).postid);
+            bundle1.putString("postname",listposts.get(i).postname);
+            bundle1.putString("header",listposts.get(i).header);
+            bundle1.putString("date",listposts.get(i).date);
+            bundle1.putString("category",listposts.get(i).category);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
             }
         });
     }
