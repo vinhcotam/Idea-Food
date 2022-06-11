@@ -51,9 +51,15 @@ public class AdapterPost extends BaseAdapter {
         TextView textView_category = view.findViewById(R.id.tv_category);
         TextView textView_postname = view.findViewById(R.id.tv_postname);
         TextView textView_ngay = view.findViewById(R.id.post_date);
+        TextView textView_status = view.findViewById(R.id.post_status);
         textView_category.setText(post.getCategory());
         textView_postname.setText(post.getPostname());
         textView_ngay.setText(post.getDate());
+        if(post.isStatus() == true){
+            textView_status.setText("Đã duyệt !");
+        }else {
+            textView_status.setText("Đang chờ duyệt!");
+        }
         ImageView imageView = view.findViewById(R.id.img_food);
         StorageReference storageReference = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("imgMain/"+post.getPostid()+"/"+post.getPostid());
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
