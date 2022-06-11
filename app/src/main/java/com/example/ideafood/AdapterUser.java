@@ -12,9 +12,9 @@ import java.util.List;
 public class AdapterUser extends BaseAdapter {
     Context context;
     int layout;
-    List<Nguoidung> list;
+    List<Account> list;
 
-    public AdapterUser(Context context, int layout, List<Nguoidung> list) {
+    public AdapterUser(Context context, int layout, List<Account> list) {
         this.context = context;
         this.layout = layout;
         this.list = list;
@@ -39,7 +39,7 @@ public class AdapterUser extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(layout,null);
-        Nguoidung user = list.get(i);
+        Account user = list.get(i);
         TextView tv = view.findViewById(R.id.tvnd);
         tv.setText(user.getUsername());
         return view;

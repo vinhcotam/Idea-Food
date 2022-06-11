@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,9 +72,10 @@ public class Infodetail extends AppCompatActivity {
                 listposts = new ArrayList<>();
                 for (DataSnapshot item : snapshot.getChildren()){
                     Posts posts = item.getValue(Posts.class);
+                    key = item.getKey();
                     listposts.add(posts);
                 }
-                adapterPost = new AdapterPost(Infodetail.this,R.layout.lv_bai_viet,listposts);
+                adapterPost = new AdapterPost(Infodetail.this,R.layout.bai_viet,listposts);
                 listView.setAdapter(adapterPost);
             }
 
@@ -97,6 +99,31 @@ public class Infodetail extends AppCompatActivity {
             bundle1.putString("content2",listposts.get(i).content_post.get(1));
             intent1.putExtras(bundle1);
             startActivity(intent1);
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder aldialog = new AlertDialog.Builder(Infodetail.this);
+                aldialog.setMessage("Bạn có muốn xóa bài viết này? ").setCancelable(false)
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                database.child("post").child(key).removeValue();
+                                Toast.makeText(Infodetail.this,"Đã xóa bài viết !",Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = aldialog.create();
+                alertDialog.setTitle("Xác nhận xóa ");
+                alertDialog.show();
+                return true;
             }
         });
     }

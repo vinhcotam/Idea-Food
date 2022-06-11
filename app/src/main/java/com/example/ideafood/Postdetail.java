@@ -26,7 +26,6 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class Postdetail extends AppCompatActivity {
-    Button btn_xoa;
     TextView tv_header,tv_category,tv_postname,tv_date,tv_status,tv_content1,tv_content2;
     ImageView img_fd;
     DatabaseReference database;
@@ -36,7 +35,6 @@ public class Postdetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postdetail);
-        btn_xoa = findViewById(R.id.bt_xoa);
         tv_header = findViewById(R.id.text_header);
         tv_category =findViewById(R.id.text_category);
         tv_postname = findViewById(R.id.text_postname);
@@ -77,33 +75,5 @@ public class Postdetail extends AppCompatActivity {
         }else {
             tv_status.setText("Đang chờ duyệt !");
         }
-
-        btn_xoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Query ps = database.child("post");
-                ps.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot item : snapshot.getChildren()){
-                            Posts posts = item.getValue(Posts.class);
-                            if(posts.getPostid().equals(postID)){
-                                key = item.getKey();
-                            }
-                        }
-                        database.child("post").child(key).removeValue();
-                        Toast.makeText(Postdetail.this,"Đã xóa bài viết !",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
-
-
     }
 }

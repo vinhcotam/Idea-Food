@@ -1,12 +1,12 @@
 package com.example.ideafood;
 
-public class Nguoidung {
+public class Account {
     String username, password, level, email;
 
-    public Nguoidung() {
+    public Account() {
     }
 
-    public Nguoidung(String username, String password, String level, String email) {
+    public Account(String username, String password, String level, String email) {
         this.username = username;
         this.password = password;
         this.level = level;

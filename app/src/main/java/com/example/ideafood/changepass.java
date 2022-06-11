@@ -25,17 +25,16 @@ import java.util.Map;
 
 public class changepass extends AppCompatActivity {
     Button btn_pass;
-    EditText edt_pass,edt_pass2;
+    EditText edt_passcu,edt_pass,edt_pass2;
     DatabaseReference database;
     String key;
-    ArrayList<Nguoidung> nguoidungArrayList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_changepass);
         btn_pass = findViewById(R.id.btn_doi);
+        edt_passcu = findViewById(R.id.edt_passcu);
         edt_pass = findViewById(R.id.edt_pass);
         edt_pass2 = findViewById(R.id.edt_pass2);
         database = FirebaseDatabase.getInstance().getReference();
@@ -53,6 +52,7 @@ public class changepass extends AppCompatActivity {
         btn_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String passcu = edt_passcu.getText().toString();
                 String pass1 = edt_pass.getText().toString();
                 String pass2 = edt_pass2.getText().toString();
                 HashMap updateacc = new HashMap<>();
@@ -63,7 +63,7 @@ public class changepass extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot item : snapshot.getChildren()){
-                            Nguoidung ng = item.getValue(Nguoidung.class);
+                            Account ng = item.getValue(Account.class);
                             if(ng.getUsername().equals(username)){
                                 key = item.getKey();
                             }
@@ -73,17 +73,20 @@ public class changepass extends AppCompatActivity {
                             Toast.makeText(changepass.this,"Vui lòng nhập đầy đủ",Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        if(!pass1.equals(pass2)){
-                            Toast.makeText(changepass.this,"Mật khẩu không khớp !",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            database.child("Account").child(key).updateChildren(updateacc).addOnSuccessListener(new OnSuccessListener() {
-                                @Override
-                                public void onSuccess(Object o) {
-                                    Toast.makeText(changepass.this,"Đổi mật khẩu thành công",Toast.LENGTH_SHORT).show();
-                                           finish();
-                                }
-                            });
+                        if(passcu.equals(password)) {
+                            if (!pass1.equals(pass2)) {
+                                Toast.makeText(changepass.this, "Mật khẩu không khớp !", Toast.LENGTH_SHORT).show();
+                            } else {
+                                database.child("Account").child(key).updateChildren(updateacc).addOnSuccessListener(new OnSuccessListener() {
+                                    @Override
+                                    public void onSuccess(Object o) {
+                                        Toast.makeText(changepass.this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
+                            }
+                        }else {
+                            Toast.makeText(changepass.this,"Mật khẩu không đúng! ",Toast.LENGTH_SHORT).show();
                         }
                     }
 

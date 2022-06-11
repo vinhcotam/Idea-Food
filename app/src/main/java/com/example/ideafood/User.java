@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class User extends AppCompatActivity {
     ListView listView;
-    ArrayList<Nguoidung> listnguoidung= null;
+    ArrayList<Account> listnguoidung= null;
     AdapterUser adapterUser;
     DatabaseReference database;
 
@@ -46,7 +46,7 @@ public class User extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listnguoidung = new ArrayList<>();
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    Nguoidung nguoidung = item.getValue(Nguoidung.class);
+                    Account nguoidung = item.getValue(Account.class);
                     listnguoidung.add(nguoidung);
                 }
                 adapterUser = new AdapterUser(User.this, R.layout.lv_user, listnguoidung);

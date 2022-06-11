@@ -3,11 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_changepass.xml" value="0.16621376811594202" />
+        <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_changepass.xml" value="0.264" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_detail_post.xml" value="0.2421875" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_homepage.xml" value="0.25" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_infodetail.xml" value="0.25" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/activity_postdetail.xml" value="0.264" />
+        <entry key="..\:/Idea-Food/app/src/main/res/layout/bai_viet.xml" value="0.16621376811594202" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/item_postlist.xml" value="0.16621376811594202" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/lv_bai_viet.xml" value="0.264" />
         <entry key="..\:/Idea-Food/app/src/main/res/layout/lv_user.xml" value="0.16621376811594202" />
