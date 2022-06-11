@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class Postdetail extends AppCompatActivity {
     Button btn_xoa;
@@ -29,13 +32,18 @@ public class Postdetail extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String postID = bundle.getString("postid");
+        String postname = bundle.getString("postname");
+        String header = bundle.getString("header");
+        String category = bundle.getString("category");
+        String date = bundle.getString("date");
+
 
 
         btn_xoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Query post = database.child("post");
-                post.addValueEventListener(new ValueEventListener() {
+                Query ps = database.child("post");
+                ps.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot item : snapshot.getChildren()){
@@ -44,7 +52,9 @@ public class Postdetail extends AppCompatActivity {
                                 key = item.getKey();
                             }
                         }
-                        database.child(key).removeValue();
+                        database.child("post").child(key).removeValue();
+                        Toast.makeText(Postdetail.this,"Đã xóa bài viết !",Toast.LENGTH_SHORT).show();
+                        finish();
                     }
 
                     @Override
