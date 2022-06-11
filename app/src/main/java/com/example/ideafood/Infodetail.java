@@ -92,6 +92,9 @@ public class Infodetail extends AppCompatActivity {
             bundle1.putString("header",listposts.get(i).header);
             bundle1.putString("date",listposts.get(i).date);
             bundle1.putString("category",listposts.get(i).category);
+            bundle1.putBoolean("status",listposts.get(i).isStatus());
+            bundle1.putString("content1",listposts.get(i).content_post.get(0));
+            bundle1.putString("content2",listposts.get(i).content_post.get(1));
             intent1.putExtras(bundle1);
             startActivity(intent1);
             }
