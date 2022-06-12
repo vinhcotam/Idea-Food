@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ideafood.Adapter.AdapterPost;
+import com.example.ideafood.Module.Account;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +36,8 @@ public class Infodetail extends AppCompatActivity {
     ArrayList<Posts> listposts = null;
     AdapterPost adapterPost;
     String key;
+    String email="";
+    String password="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,31 +45,63 @@ public class Infodetail extends AppCompatActivity {
         tvname = findViewById(R.id.tv_name);
         tvemail = findViewById(R.id.tv_email);
         btn_doipass = findViewById(R.id.btn_doimk);
-
         listView = findViewById(R.id.lv_baiviet);
-
         database = FirebaseDatabase.getInstance().getReference();
-
-
         Intent intent =getIntent();
         Bundle bundle = intent.getExtras();
         String username = bundle.getString("username");
-        String password = bundle.getString("password");
-        String email = bundle.getString("email");
-        String level = bundle.getString("level");
-        tvname.setText(username);
-        tvemail.setText(email);
+        Query getInfo = database.child("Account").orderByChild("username").equalTo(username);
+        getInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot item : snapshot.getChildren()){
+                    Account a = item.getValue(Account.class);
+                    tvname.setText(a.getUsername());
+                    tvemail.setText(a.getEmail());
+                    email = a.getEmail();
+                    password = a.getPassword();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Button btn_taobaiviet = findViewById(R.id.btn_taobaiviet);
+        btn_taobaiviet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(Infodetail.this, createpost2.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         btn_doipass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Infodetail.this,changepass.class);
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("username",username);
-                bundle1.putString("password",password);
-                bundle1.putString("email",email);
-                bundle1.putString("level",level);
-                intent1.putExtras(bundle1);
-                startActivity(intent1);
+                Query getInfo = database.child("Account").orderByChild("username").equalTo(username);
+                getInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot item : snapshot.getChildren()){
+                            Account a = item.getValue(Account.class);
+                            bundle1.putString("username", a.getUsername());
+                            bundle1.putString("password", a.getPassword());
+                            intent1.putExtras(bundle1);
+                            startActivity(intent1);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
         Query mypost = database.child("post").orderByChild("username").equalTo(username);

@@ -10,9 +10,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 
-import com.example.ideafood.Adapter.ListRep_Adapter;
 import com.example.ideafood.Adapter.Rep_Adapter;
-import com.example.ideafood.classs.Comment;
+import com.example.ideafood.Module.Comment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

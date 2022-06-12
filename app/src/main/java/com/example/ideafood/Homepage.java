@@ -183,7 +183,7 @@ public class Homepage extends AppCompatActivity {
                     return true;
                 }
                 if(item.getItemId()==R.id.nav_myaccount){
-                    Intent intent = new Intent(Homepage.this, MyDS.class);
+                    Intent intent = new Intent(Homepage.this, Infodetail.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("username", username);
                     intent.putExtras(bundle);

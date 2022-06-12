@@ -34,7 +34,10 @@
             android:name=".Module_Chat"
             android:exported="false" />
         <activity
-            android:name=".BoxAddComment"
+            android:name=".Infodetail"
+            android:exported="false" />
+        <activity
+            android:name=".changepass"
             android:exported="false" />
         <activity
             android:name=".DetailPost"

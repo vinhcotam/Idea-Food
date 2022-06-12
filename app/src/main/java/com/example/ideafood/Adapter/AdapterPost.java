@@ -1,4 +1,4 @@
-package com.example.ideafood;
+package com.example.ideafood.Adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ideafood.Posts;
+import com.example.ideafood.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;

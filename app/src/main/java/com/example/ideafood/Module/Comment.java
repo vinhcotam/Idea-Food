@@ -1,4 +1,4 @@
-package com.example.ideafood.classs;
+package com.example.ideafood.Module;
 
 import java.util.Random;
 

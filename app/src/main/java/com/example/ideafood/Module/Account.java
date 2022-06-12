@@ -1,4 +1,4 @@
-package com.example.ideafood;
+package com.example.ideafood.Module;
 
 public class Account {
     String username, password, level, email;

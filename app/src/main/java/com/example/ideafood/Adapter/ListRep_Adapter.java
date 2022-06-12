@@ -6,7 +6,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.ideafood.R;
-import com.example.ideafood.classs.Comment;
+import com.example.ideafood.Module.Comment;
 
 import java.util.ArrayList;
 
