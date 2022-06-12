@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class Postdetail extends AppCompatActivity {
     TextView tv_header,tv_category,tv_postname,tv_date,tv_status,tv_content1,tv_content2;
-    ImageView img_fd;
+    ImageView img_fd,img_fd1;
     DatabaseReference database;
     String key;
 
@@ -43,6 +43,7 @@ public class Postdetail extends AppCompatActivity {
         tv_content1 = findViewById(R.id.text_content1);
         tv_content2 = findViewById(R.id.text_content2);
         img_fd = findViewById(R.id.image_fd);
+        img_fd1 = findViewById(R.id.image_fd1);
 
         database = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
@@ -55,12 +56,18 @@ public class Postdetail extends AppCompatActivity {
         Boolean status = bundle.getBoolean("status");
         String content1 = bundle.getString("content1");
         String content2 = bundle.getString("content2");
-        StorageReference storageReference = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("imgMain/"+postID+"/"+postID);
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        StorageReference storageimg1 = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("img1/"+postID+"/"+postID);
+        storageimg1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-//                Glide.with(viewGroup.getContext()).load(uri).into(imageView);
-               img_fd.setImageURI(uri);
+               Glide.with(Postdetail.this.getApplicationContext()).load(uri).into(img_fd);
+            }
+        });
+        StorageReference storageimg2 = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("img2/"+postID+"/"+postID);
+        storageimg2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(Postdetail.this.getApplicationContext()).load(uri).into(img_fd1);
             }
         });
 

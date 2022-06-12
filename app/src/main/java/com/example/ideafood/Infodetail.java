@@ -14,12 +14,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -104,12 +107,41 @@ public class Infodetail extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String postid = listposts.get(i).postid;
                 AlertDialog.Builder aldialog = new AlertDialog.Builder(Infodetail.this);
                 aldialog.setMessage("Bạn có muốn xóa bài viết này? ").setCancelable(false)
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 database.child("post").child(key).removeValue();
+                                StorageReference storageReference = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("imgMain/"+postid+"/"+postid);
+                                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(Infodetail.this,"Đã xóa ảnh !",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                StorageReference storageimg1 = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("img1/"+postid+"/"+postid);
+                                storageimg1.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(Infodetail.this,"Đã xóa ảnh 1 !",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                StorageReference storageimg2 = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("img2/"+postid+"/"+postid);
+                                storageimg2.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(Infodetail.this,"Đã xóa ảnh 2 !",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                StorageReference storagevideo = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com").getReference().child("video/"+postid+"/"+postid);
+                                storagevideo.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(Infodetail.this,"Đã xóa video !",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 Toast.makeText(Infodetail.this,"Đã xóa bài viết !",Toast.LENGTH_SHORT).show();
                                 finish();
                             }
