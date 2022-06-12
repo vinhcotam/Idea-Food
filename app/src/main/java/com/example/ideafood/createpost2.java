@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -38,6 +39,7 @@ import java.util.Random;
 
 public class createpost2 extends AppCompatActivity {
     String username;
+    String category;
     VideoView vv_video;
     ImageView iv_img,iv_img1,iv_imgmain;
     Spinner id_spinner1;
@@ -47,9 +49,10 @@ public class createpost2 extends AppCompatActivity {
     int SELECT_VIDEO_REQUEST=100;
     ArrayList content_post;
     ArrayList<String> spinnerls;
+    TextView tv_category;
     ArrayAdapter<String> adapter;
     Button btn_save,btn_preview;
-    EditText et_namepost,et_namecontent1,et_namecontent2,et_categorypost,et_headerpost;
+    EditText et_namepost,et_namecontent1,et_namecontent2,et_headerpost;
     MediaController mc;
     Button btn_videoupload,btn_imgload,btn_img1load,btn_imgmainload;
     Random random = new Random();
@@ -62,10 +65,10 @@ public class createpost2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpost2);
         anhXa();
+        tv_category=findViewById(R.id.tv_category);
         id_spinner1=findViewById(R.id.id_spinner1);
         spinnerls=new ArrayList<>();
-        adapter=new ArrayAdapter<String>(createpost2.this, android.R.layout.simple_spinner_dropdown_item,spinnerls);
-        id_spinner1.setAdapter(adapter);
+
         getDatafromIntent();
         showCategory();
         setOnClick();
@@ -88,6 +91,9 @@ public class createpost2 extends AppCompatActivity {
                     Tag tag=item.getValue(Tag.class);
                     spinnerls.add(tag.getCategory());
                 }
+                ArrayAdapter adapter=new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,spinnerls);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                id_spinner1.setAdapter(adapter);
             }
 
             @Override
@@ -132,6 +138,7 @@ public class createpost2 extends AppCompatActivity {
                 startActivityForResult(intent,SELECT_VIDEO_REQUEST);
             }
         });
+
         btn_preview.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -140,7 +147,7 @@ public class createpost2 extends AppCompatActivity {
                 String content2=et_namecontent2.getText().toString().trim();
                 String title=et_namepost.getText().toString().trim();
                 String header=et_headerpost.getText().toString().trim();
-                String category=et_categorypost.getText().toString().trim();
+                String category=id_spinner1.getSelectedItem().toString();
                 String imgUri= String.valueOf(selectedImageUri);
                 String img1Uri= String.valueOf(selectedImageUri1);
                 String imgMainUri= String.valueOf(selectedImageMainUri);
@@ -175,6 +182,8 @@ public class createpost2 extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                category=id_spinner1.getSelectedItem().toString();
+//                et_categorypost.setText(category);
                 String imgUri= String.valueOf(selectedImageUri);
                 String img1Uri= String.valueOf(selectedImageUri1);
                 String imgMainUri=String.valueOf(selectedImageMainUri);
@@ -182,7 +191,7 @@ public class createpost2 extends AppCompatActivity {
                 String content1=et_namecontent1.getText().toString().trim();
                 String content2=et_namecontent2.getText().toString().trim();
                 String title=et_namepost.getText().toString().trim();
-                String category=et_categorypost.getText().toString().trim();
+//                String category=et_categorypost.getText().toString().trim();
                 String header=et_headerpost.getText().toString().trim();
                 int idpost = random.nextInt(10000);
                 int idvideo = random.nextInt(10000);
@@ -254,7 +263,6 @@ public class createpost2 extends AppCompatActivity {
                     boolean status=false;
                     Posts post= new Posts(postid,  date,  header,  title, username,  category,  content_post,status);
                     FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
-                    et_categorypost.setText("");
                     et_headerpost.setText("");
                     et_namecontent1.setText("");
                     et_namepost.setText("");
@@ -292,7 +300,6 @@ public class createpost2 extends AppCompatActivity {
         et_namecontent1=findViewById(R.id.et_namecontent1);
         et_namecontent2=findViewById(R.id.et_namecontent2);
         et_namepost=findViewById(R.id.et_namepost);
-        et_categorypost=findViewById(R.id.et_categorypost);
         et_headerpost=findViewById(R.id.et_headerpost);
         mc=new MediaController(createpost2.this);
         vv_video.setFocusable(true);
@@ -337,15 +344,6 @@ public class createpost2 extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE1);
     }
 
-    //    private void videoChoose() {
-//        Intent i = new Intent();
-//        i.setType("video/*");
-//        i.setAction(Intent.ACTION_GET_CONTENT);
-//
-//        // pass the constant to compare it
-//        // with the returned requestCode
-//        startActivityForResult(Intent.createChooser(i, "Select Video"), SELECT_VIDEO_REQUEST);
-//    }
     Uri selectedImageUri,selectedVideoUri,selectedImageUri1,selectedImageMainUri;
     private void imageChoose() {
         Intent i = new Intent();
