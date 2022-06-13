@@ -355,19 +355,9 @@ public class createpost2 extends AppCompatActivity {
                     // update the preview image in the layout
                     iv_img.setImageURI(selectedImageUri);
                 }
-                selectedImageUri1=data.getData();
-                if (null != selectedImageUri1) {
-                    // update the preview image in the layout
-                    iv_img.setImageURI(selectedImageUri1);
-                }
             }else if (requestCode == SELECT_PICTURE1) {
                 // Get the url of the image from data
                 selectedImageUri1 = data.getData();
-                if (null != selectedImageUri1) {
-                    // update the preview image in the layout
-                    iv_img1.setImageURI(selectedImageUri1);
-                }
-                selectedImageUri1=data.getData();
                 if (null != selectedImageUri1) {
                     // update the preview image in the layout
                     iv_img1.setImageURI(selectedImageUri1);
