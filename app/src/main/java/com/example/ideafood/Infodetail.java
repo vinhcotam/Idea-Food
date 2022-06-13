@@ -111,7 +111,6 @@ public class Infodetail extends AppCompatActivity {
                 listposts = new ArrayList<>();
                 for (DataSnapshot item : snapshot.getChildren()){
                     Posts posts = item.getValue(Posts.class);
-                    key = item.getKey();
                     listposts.add(posts);
                 }
                 adapterPost = new AdapterPost(Infodetail.this,R.layout.bai_viet,listposts);
@@ -144,6 +143,20 @@ public class Infodetail extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String postid = listposts.get(i).postid;
+                Query psid = database.child("post").orderByChild("postid").equalTo(postid);
+                psid.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot item : snapshot.getChildren()){
+                            key = item.getKey();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 AlertDialog.Builder aldialog = new AlertDialog.Builder(Infodetail.this);
                 aldialog.setMessage("Bạn có muốn xóa bài viết này? ").setCancelable(false)
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -179,7 +192,7 @@ public class Infodetail extends AppCompatActivity {
                                     }
                                 });
                                 Toast.makeText(Infodetail.this,"Đã xóa bài viết !",Toast.LENGTH_SHORT).show();
-                                finish();
+                                onRestart();
                             }
                         })
                         .setNegativeButton("Không", new DialogInterface.OnClickListener() {

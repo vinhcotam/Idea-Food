@@ -59,7 +59,7 @@ public class changepass extends AppCompatActivity {
                 HashMap updateacc = new HashMap<>();
                 updateacc.put("password",pass2);
 
-               Query acc = database.child("Account");
+               Query acc = database.child("Account").orderByChild("username").equalTo(username);
                 acc.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,7 +69,7 @@ public class changepass extends AppCompatActivity {
                                 key = item.getKey();
                             }
                         }
-                        if(edt_pass.getText().length() == 0 || edt_pass2.getText().length() == 0 )
+                        if(edt_passcu.getText().length() == 0 || edt_pass.getText().length() == 0 || edt_pass2.getText().length() == 0 )
                         {
                             Toast.makeText(changepass.this,"Vui lòng nhập đầy đủ",Toast.LENGTH_SHORT).show();
                             return;
@@ -85,6 +85,7 @@ public class changepass extends AppCompatActivity {
                                         finish();
                                     }
                                 });
+                                return;
                             }
                         }else {
                             Toast.makeText(changepass.this,"Mật khẩu không đúng! ",Toast.LENGTH_SHORT).show();
