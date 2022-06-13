@@ -43,7 +43,7 @@ import java.util.Random;
 
 public class DetailPost extends AppCompatActivity {
     ArrayList<Posts> mListPost;
-    TextView tv_headerdp,tv_user_post,tv_date_postdp,tv_categorydp,tv_content1dp,tv_content2dp;
+    TextView tv_headerdp,tv_user_post,tv_date_postdp,tv_categorydp,tv_content1dp,tv_content2dp,tv_videohd;
     ImageView iv_imgdp,iv_img1dp;
     VideoView vv_videodp;
     MediaController mc;
@@ -64,7 +64,6 @@ public class DetailPost extends AppCompatActivity {
         a.start();
         SetEvent();
     }
-
     private void loadPostTT() {
         mListPost=new ArrayList<>();
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(DetailPost.this,RecyclerView.HORIZONTAL,false);
@@ -81,24 +80,8 @@ public class DetailPost extends AppCompatActivity {
                         mListPost.add(post);
                     }
                 }
-
-
                 postsAdapter=new PostsAdapter(DetailPost.this,mListPost);
                 rcv_bvtt.setAdapter(postsAdapter);
-
-//                Adapter adapter=new PostAdapter(mListPost);
-//                lv_bvtt.setAdapter((ListAdapter) adapter);
-//                lv_bvtt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        Intent intent=new Intent(DetailPost.this,DetailPost.class);
-//                        Bundle bundle=new Bundle();
-//                        bundle.putString("postid",mListPost.get(i).getPostid());
-//                        bundle.putString("category",mListPost.get(i).getCategory());
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
-//                    }
-//                });
                 getDatafromIntent();
             }
 
@@ -156,6 +139,7 @@ public class DetailPost extends AppCompatActivity {
     }
 
     private void anhXa() {
+        tv_videohd=findViewById(R.id.tv_videohd);
         tv_categorydp=findViewById(R.id.tv_categorydp);
         tv_content1dp=findViewById(R.id.tv_content1dp);
         tv_content2dp=findViewById(R.id.tv_content2dp);
@@ -186,8 +170,17 @@ public class DetailPost extends AppCompatActivity {
                                 tv_date_postdp.append(" "+post.getDate());
                                 tv_categorydp.setText(post.getCategory());
                                 for(int i=0;i<post.getContent_post().size();i++){
-                                    tv_content1dp.setText(post.getContent_post().get(0));
-                                    tv_content2dp.setText(post.getContent_post().get(1));
+                                    if(post.getContent_post().get(0)==null){
+                                        tv_content1dp.setVisibility(View.GONE);
+                                    }else{
+                                        tv_content1dp.setText(post.getContent_post().get(0));
+                                    }
+                                    if(post.getContent_post().get(1)==null){
+                                        tv_content2dp.setVisibility(View.GONE);
+                                    }else{
+                                        tv_content2dp.setText(post.getContent_post().get(1));
+                                    }
+
                                 }
                         }
                     }
@@ -204,41 +197,53 @@ public class DetailPost extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://idea-food-cd7e7.appspot.com");
     StorageReference storageRef;
     private void loadVideoImg() {
+        iv_imgdp.setVisibility(View.GONE);
         storageRef=storage.getReference().child("img1/"+postid+"/"+postid);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-
+            if(uri!=null){
                 String urlImage = uri.toString();
-                Log.d("img",urlImage);
+                iv_imgdp.setVisibility(View.VISIBLE);
                 Glide.with(DetailPost.this).load(urlImage).into(iv_imgdp);
             }
+            }
         });
-//        return storageRef.toString();
-
+        iv_img1dp.setVisibility(View.GONE);
         storageRef=storage.getReference().child("img2/"+postid+"/"+postid);
-
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 //                iv_imgdp.setImageURI(uri);
+                if (uri!=null){
+                    String urlImage = uri.toString();
+                    iv_img1dp.setVisibility(View.VISIBLE);
+                    Glide.with(DetailPost.this).load(urlImage).into(iv_img1dp);
+                }
 
-                String urlImage = uri.toString();
-                Log.d("img1",urlImage);
-                Glide.with(DetailPost.this).load(urlImage).into(iv_img1dp);
+
+
             }
         });
+        vv_videodp.setVisibility(View.GONE);
+        tv_videohd.setVisibility(View.GONE);
+        storageRef=storage.getReference().child("video/"+postid+"/"+postid);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                if(uri!=null){
+                    tv_videohd.setVisibility(View.VISIBLE);
+                    vv_videodp.setMediaController(new MediaController(DetailPost.this));
+                    vv_videodp.setVisibility(View.VISIBLE);
+                    vv_videodp.setVideoURI(uri);
+                }else{
 
-//        storageRef=storage.getReference().child("video/"+postid+"/"+postid);
-//        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                vv_videodp.setMediaController(new MediaController(DetailPost.this));
-//                Log.d("video",uri.toString());
-//                vv_videodp.setVideoURI(uri);
-////                vv_videodp.start();
-//            }
-//        });
+                }
+
+
+//                vv_videodp.start();
+            }
+        });
     }
 
 

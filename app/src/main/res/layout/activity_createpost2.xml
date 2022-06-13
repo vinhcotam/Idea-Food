@@ -73,6 +73,7 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:layout_margin="10dp"
                 android:layout_width="230dp"
                 android:id="@+id/btn_imgmainload"
                 android:text="Tải ảnh tiêu đề bài viết"
@@ -81,6 +82,7 @@
 
             </Button>
             <ImageView
+                android:layout_margin="10dp"
                 android:visibility="invisible"
                 android:id="@+id/iv_imgmain"
                 android:layout_width="match_parent"
@@ -92,6 +94,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content">
             <Button
                 android:layout_width="120dp"
@@ -102,6 +105,7 @@
 
             </Button>
             <VideoView
+                android:layout_margin="10dp"
                 android:id="@+id/vv_video"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -116,7 +120,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:text="Nhập nội dung thứ nhất"
@@ -133,9 +139,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content">
 
             <Button
+                android:layout_margin="10dp"
                 android:layout_width="120dp"
                 android:id="@+id/btn_imgload"
                 android:text="Tải ảnh 1 lên"
@@ -146,6 +154,7 @@
             <ImageView
                 android:visibility="invisible"
                 android:id="@+id/iv_img"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
@@ -155,6 +164,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
@@ -178,6 +188,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
             <Button
+                android:layout_margin="10dp"
                 android:layout_width="120dp"
                 android:id="@+id/btn_img1load"
                 android:text="Tải ảnh 2 lên"
@@ -186,6 +197,7 @@
 
             </Button>
             <ImageView
+                android:layout_margin="10dp"
                 android:visibility="invisible"
                 android:id="@+id/iv_img1"
                 android:layout_width="match_parent"
@@ -198,6 +210,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:weightSum="10"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content">
             <Button
                 android:layout_weight="4"

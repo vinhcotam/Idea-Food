@@ -7,6 +7,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -68,7 +69,6 @@ public class createpost2 extends AppCompatActivity {
         tv_category=findViewById(R.id.tv_category);
         id_spinner1=findViewById(R.id.id_spinner1);
         spinnerls=new ArrayList<>();
-
         getDatafromIntent();
         showCategory();
         setOnClick();
@@ -183,7 +183,6 @@ public class createpost2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 category=id_spinner1.getSelectedItem().toString();
-//                et_categorypost.setText(category);
                 String imgUri= String.valueOf(selectedImageUri);
                 String img1Uri= String.valueOf(selectedImageUri1);
                 String imgMainUri=String.valueOf(selectedImageMainUri);
@@ -191,7 +190,6 @@ public class createpost2 extends AppCompatActivity {
                 String content1=et_namecontent1.getText().toString().trim();
                 String content2=et_namecontent2.getText().toString().trim();
                 String title=et_namepost.getText().toString().trim();
-//                String category=et_categorypost.getText().toString().trim();
                 String header=et_headerpost.getText().toString().trim();
                 int idpost = random.nextInt(10000);
                 int idvideo = random.nextInt(10000);
@@ -201,65 +199,66 @@ public class createpost2 extends AppCompatActivity {
                 int imgid1 = random.nextInt(10000);
                 String date= String.valueOf(java.time.LocalDate.now());
                 String postid= String.valueOf(idpost);
-//                int imgname1=random.nextInt(1000);
-//                int imgname2=random.nextInt(1000);
-//                int videoname=random.nextInt(1000);
+                content_post=new ArrayList();
 
-                if(imgUri==null||img1Uri!=null||videoUri!=null||content1!=null
-                        ||content2!=null||title!=null||category!=null||header!=null||imgMainUri!=null){
-                    content_post=new ArrayList();
+
+                if(content1!=null ||title!=null||category!=null||header!=null){
                     content_post.add(content1);
                     content_post.add(content2);
-                    storageRef = storage.getReference("img1/"+postid+"/"+postid);
-                    storageRef.putFile(selectedImageUri)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                }
-                            }).addOnCanceledListener(new OnCanceledListener() {
-                                @Override
-                                public void onCanceled() {
-                                }
-                            });
-                    storageRef1 = storage.getReference("img2/"+postid+"/"+postid);
-                    storageRef1.putFile(selectedImageUri1)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                }
-                            }).addOnCanceledListener(new OnCanceledListener() {
-                                @Override
-                                public void onCanceled() {
-                                }
-                            });
-                    storageRef2 = storage.getReference("video/"+postid+"/"+postid);
-                    storageRef2.putFile(selectedVideoUri)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                }
-                            }).addOnCanceledListener(new OnCanceledListener() {
-                                @Override
-                                public void onCanceled() {
-                                }
-                            });
-                    storageRef3 = storage.getReference("imgMain/"+postid+"/"+postid);
-                    storageRef3.putFile(selectedImageMainUri)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                }
-                            }).addOnCanceledListener(new OnCanceledListener() {
-                                @Override
-                                public void onCanceled() {
-                                }
-                            });
-//                    String date= String.valueOf(java.time.LocalDate.now());
-//                    String postid= String.valueOf(idpost);
-//                    Video video=new Video( videoid,  "videoname",  videoUri, postid);
-//                    FirebaseDatabase.getInstance().getReference().child("videos").push().setValue(video);
-//                    Img img=new Img( imgid,  imgUri,  "a",postid );
-//                    FirebaseDatabase.getInstance().getReference().child("images").push().setValue(img);
+                    if(videoUri!="null"){
+                        storageRef2 = storage.getReference("video/"+postid+"/"+postid);
+                        storageRef2.putFile(selectedVideoUri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    }
+                                }).addOnCanceledListener(new OnCanceledListener() {
+                                    @Override
+                                    public void onCanceled() {
+                                    }
+                                });
+                    }else{
+                        Log.d("test",videoUri);
+                    }
+                    if(imgUri!="null"){
+                        storageRef = storage.getReference("img1/"+postid+"/"+postid);
+                        storageRef.putFile(selectedImageUri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    }
+                                }).addOnCanceledListener(new OnCanceledListener() {
+                                    @Override
+                                    public void onCanceled() {
+                                    }
+                                });
+                    }
+                    if(img1Uri!="null"){
+                        storageRef1 = storage.getReference("img2/"+postid+"/"+postid);
+                        storageRef1.putFile(selectedImageUri1)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    }
+                                }).addOnCanceledListener(new OnCanceledListener() {
+                                    @Override
+                                    public void onCanceled() {
+                                    }
+                                });
+                    }
+                    if(imgMainUri!="null"){
+                        storageRef3 = storage.getReference("imgMain/"+postid+"/"+postid);
+                        storageRef3.putFile(selectedImageMainUri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    }
+                                }).addOnCanceledListener(new OnCanceledListener() {
+                                    @Override
+                                    public void onCanceled() {
+                                    }
+                                });
+                    }
                     boolean status=false;
                     Posts post= new Posts(postid,  date,  header,  title, username,  category,  content_post,status);
                     FirebaseDatabase.getInstance().getReference().child("post").push().setValue(post);
@@ -285,9 +284,6 @@ public class createpost2 extends AppCompatActivity {
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTUREMAIN);
     }
 
@@ -338,20 +334,14 @@ public class createpost2 extends AppCompatActivity {
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE1);
     }
 
-    Uri selectedImageUri,selectedVideoUri,selectedImageUri1,selectedImageMainUri;
+    Uri selectedImageUri=null,selectedVideoUri=null,selectedImageUri1=null,selectedImageMainUri=null;
     private void imageChoose() {
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -398,6 +388,41 @@ public class createpost2 extends AppCompatActivity {
                 }
             }
         }
+//
+//        }i
+//        if(resultCode == RESULT_OK &&requestCode == SELECT_PICTURE){
+//            selectedImageUri = data.getData();
+//            iv_img.setImageURI(selectedImageUri);
+//        }else{
+//            selectedImageUri=null;
+////            iv_img.setVisibility(View.GONE);
+//
+//        }
+//        if(resultCode == RESULT_OK &&requestCode == SELECT_PICTURE1){
+//            selectedImageUri1 = data.getData();
+//            iv_img.setImageURI(selectedImageUri1);
+//        }else{
+//            selectedImageUri1=null;
+////            iv_img1.setVisibility(View.GONE);
+//
+//        }
+//        if(resultCode == RESULT_OK &&requestCode == SELECT_PICTUREMAIN){
+//            selectedImageMainUri = data.getData();
+//            iv_imgmain.setImageURI(selectedImageMainUri);
+//        }else{
+//            selectedImageMainUri=null;
+////            iv_imgmain.setVisibility(View.GONE);
+//        }
+//        if(resultCode == RESULT_OK &&requestCode == SELECT_VIDEO_REQUEST){
+//            selectedVideoUri = data.getData();
+//            vv_video.setVideoURI(selectedVideoUri);
+//            vv_video.requestFocus();
+//
+//        }else{
+//            selectedVideoUri=null;
+////            vv_video.setVisibility(View.GONE);
+//        }
+
 
 
     }

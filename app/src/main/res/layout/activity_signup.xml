@@ -34,6 +34,15 @@
                 android:id="@+id/sign_username"
                 android:inputType="text" />
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/checkusername"
+                android:layout_column="1"
+                android:textColor="@color/design_default_color_error" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
