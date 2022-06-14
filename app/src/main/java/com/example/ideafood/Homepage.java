@@ -166,14 +166,6 @@ public class Homepage extends AppCompatActivity {
                     return  true;
 
                 }
-                if(item.getItemId()==R.id.createapost){
-                    Intent intent = new Intent(Homepage.this, createpost2.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", username);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    return  true;
-                }
                 if(item.getItemId()==R.id.nav_dsxemsau){
                     Intent intent = new Intent(Homepage.this, MyDS.class);
                     Bundle bundle = new Bundle();

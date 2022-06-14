@@ -49,10 +49,6 @@
             </menu>
         </item>
         <item
-            android:id="@+id/createapost"
-            android:icon="@drawable/ic_baseline_fiber_new_24"
-            android:title="Tạo bài viết (tạm thời)" />
-        <item
             android:id="@+id/nav_signout"
             android:icon="@drawable/ic_baseline_login_24"
             android:title="@string/logout" />
