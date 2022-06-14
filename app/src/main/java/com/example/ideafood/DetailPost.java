@@ -76,7 +76,7 @@ public class DetailPost extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item:snapshot.getChildren()){
                     Posts post=item.getValue(Posts.class);
-                    if(!post.getPostid().equals(postid)){
+                    if(!post.getPostid().equals(postid) &&post.isStatus()==true){
                         mListPost.add(post);
                     }
                 }
