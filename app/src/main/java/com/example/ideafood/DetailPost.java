@@ -385,6 +385,7 @@ public class DetailPost extends AppCompatActivity {
         commentid = Integer.toString((new Random()).nextInt());
         Comment cmt = new Comment(commentid, content, date, fatherid, postid, username);
         FirebaseDatabase.getInstance().getReference().child("comments").push().setValue(cmt);
+        editText.setText("");
         Toast.makeText(this, "Đã bình luận", Toast.LENGTH_SHORT).show();
     }
     //kiểm tra xem trang hiện tại đã là min hoặc max chưa
