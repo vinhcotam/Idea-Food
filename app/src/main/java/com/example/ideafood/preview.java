@@ -36,6 +36,8 @@ public class preview extends AppCompatActivity {
             vv_video_preview.setMediaController(mc_preview);
             vv_video_preview.setVideoURI(videoUri);
             vv_video_preview.start();
+        }else{
+            vv_video_preview.setVisibility(View.GONE);
         }
         if(!img1.equals("null")){
             Uri imgUri1= Uri.parse(img1);
