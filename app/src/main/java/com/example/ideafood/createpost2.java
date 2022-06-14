@@ -156,18 +156,23 @@ public class createpost2 extends AppCompatActivity {
                 String tagid= String.valueOf(idtag);
 //                Tag tag=new Tag( tagid,  "đồ ăn nhanh");
 //                FirebaseDatabase.getInstance().getReference().child("tags").push().setValue(tag);
-                if(imgUri!=null||img1Uri!=null||videoUri!=null||content1!=null
-                        ||content2!=null||title!=null||category!=null||header!=null||imgMainUri!=null){
+                if(imgUri!=null||content1!=null ||title!=null||category!=null||header!=null||imgMainUri!=null){
+
+
                     Intent intent=new Intent(createpost2.this,preview.class);
                     Bundle bundle=new Bundle();
+                    if(img1Uri!=null){
+                        bundle.putString("img1",img1Uri);
+                    }
+                    if(videoUri!=null){
+                        bundle.putString("video",videoUri);
+                    }
                     bundle.putString("category",category);
                     bundle.putString("header",header);
                     bundle.putString("title",title);
                     bundle.putString("content1",content1);
                     bundle.putString("content2",content2);
                     bundle.putString("img",imgUri);
-                    bundle.putString("img1",img1Uri);
-                    bundle.putString("video",videoUri);
                     bundle.putString("imgmain",imgMainUri);
                     bundle.putString("username", username);
                     intent.putExtras(bundle);

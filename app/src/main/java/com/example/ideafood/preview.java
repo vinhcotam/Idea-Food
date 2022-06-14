@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -29,20 +30,31 @@ public class preview extends AppCompatActivity {
         String video=bundle.getString("video");
         String category=bundle.getString("category");
         String header=bundle.getString("header");
-        Uri videoUri= Uri.parse(video);
+        if(!video.equals("null")){
+            Uri videoUri= Uri.parse(video);
+            mc_preview=new MediaController(preview.this);
+            vv_video_preview.setMediaController(mc_preview);
+            vv_video_preview.setVideoURI(videoUri);
+            vv_video_preview.start();
+        }
+        if(!img1.equals("null")){
+            Uri imgUri1= Uri.parse(img1);
+            iv_img21.setImageURI(imgUri1);
+        }else{
+            iv_img21.setVisibility(View.GONE);
+        }
         Uri imgUri= Uri.parse(img);
-        Uri imgUri1= Uri.parse(img1);
         tv_title.setText(title);
         tv_content1.setText(content1);
-        tv_content2.setText(content2);
+        if(content2=="null"){
+            tv_content2.setVisibility(View.GONE);
+        }else{
+            tv_content2.setText(content2);
+        }
         iv_img11.setImageURI(imgUri);
-        iv_img21.setImageURI(imgUri1);
         tv_categorypost_preview.append(" "+category);
         tv_headerpost_preview.append(" "+header);
-        mc_preview=new MediaController(preview.this);
-        vv_video_preview.setMediaController(mc_preview);
-        vv_video_preview.setVideoURI(videoUri);
-        vv_video_preview.start();
+
 
     }
     private void anhXa() {
