@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 public class Signup extends AppCompatActivity {
 
     @Override
@@ -98,6 +100,10 @@ public class Signup extends AppCompatActivity {
         if(newPassword.contains(" ")){
             contain = true;
             errEmail.setText("Mật khẩu không được chứa dấu cách");
+        }
+        if(newUsername.contains(" ")){
+            contain = true;
+            errUsername.setText("Tên người dùng không được chứa dấu cách");
         }
     }
     DatabaseReference database;
